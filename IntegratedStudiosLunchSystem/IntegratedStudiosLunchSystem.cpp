@@ -46,6 +46,26 @@ int main() {
 
     }break;
 
+    case 2:
+    {
+        // Bulk Booking Discount
+        cout << "\n\n\t\t\t\t\t\t-----Bulk Booking Discount-----" << endl;
+        cout << endl;
+        cout << "1.\t\t\t\t\t\t2.\t\t\t\t\t\t3." << endl;
+        cout << "Gold Ticket\t\t\t\t\tSilver Ticket\t\t\t\t\tBronze Ticket" << endl;
+        cout << "-------------\t\t\t\t\t-------------\t\t\t\t\t--------------" << endl;
+        cout << "Pay for 30 days and receive a \t\t\tPay for 15 days and receive a \t\t\tPay for 7 days and receive a";
+        cout << "\n15% discount\t\t\t\t\t10% discount\t\t\t\t\t5% discount";
+        cout << endl;
+        cout << "\nWithout ticket : $175\t\t\t\tWithout ticket : $125\t\t\t\tWithout ticket : $75";
+        cout << "\nWith ticket : $148.75\t\t\t\tWith ticket : $112.50\t\t\t\tWith ticket : $71.25";
+        cout << "\nYou save: $26.25\t\t\t\tYou save: $12.50\t\t\t\tYou save: $3.75";
+        cout << endl;
+        cout << endl;
+
+
+    }break;
+
     case 3:
     {
         // Contact Details
