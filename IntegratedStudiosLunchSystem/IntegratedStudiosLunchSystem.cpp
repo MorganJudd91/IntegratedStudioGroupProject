@@ -113,15 +113,15 @@ void contactdetails() {
 void loginregmenu() {
     int userselect = 0;
 
-    cout << " ______________________\n"; // display menu
-    cout << "| Login/Register       |\n";
-    cout << "|______________________|\n";
-    cout << "| 1. Login             |\n";
-    cout << "| 2. Register          |\n";
-    cout << "| 3. Forgot password   |\n";
-    cout << "| 4. Back              |\n";
-    cout << "|______________________|\n\n";
-    cout << "Please select the corresponding number: ";
+    cout << "\t\t\t\t ______________________\n"; // display menu
+    cout << "\t\t\t\t| Login/Register       |\n";
+    cout << "\t\t\t\t|______________________|\n";
+    cout << "\t\t\t\t| 1. Login             |\n";
+    cout << "\t\t\t\t| 2. Register          |\n";
+    cout << "\t\t\t\t| 3. Forgot password   |\n";
+    cout << "\t\t\t\t| 4. Back              |\n";
+    cout << "\t\t\t\t|______________________|\n\n";
+    cout << "\t\t\t\tPlease select the corresponding number: ";
     cin >> userselect;
     cin.clear();
     if (userselect == 1) {
