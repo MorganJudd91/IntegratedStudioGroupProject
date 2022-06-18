@@ -6,6 +6,7 @@
 #include <string>
 #include <fstream>
 #include <vector>
+#include <map>
 using namespace std;
 
 
@@ -36,15 +37,23 @@ struct user { // user struct
     carddetails usercard;
 };
 
+//global user
+//______________________________________________________________________________________________________________
+user userloggedin;
 
 //Functions templates
+//______________________________________________________________________________________________________________
+//main menu Functions templates
 //______________________________________________________________________________________________________________
 void weeklymenu();
 void mainmenu();
 void bookingdiscount();
 void contactdetails();
+//login/register Functions templates
+//______________________________________________________________________________________________________________
 void loginregmenu();
-
+void userlogin(user& userlog, string searchusername, string password);
+void login(user& loginuser);
 
 //main()
 //______________________________________________________________________________________________________________
@@ -82,7 +91,7 @@ int main() {
 }
 
 
-//Functions
+//main menu functions
 //______________________________________________________________________________________________________________
 void mainmenu() {
     
@@ -151,6 +160,11 @@ void contactdetails() {
     cout << endl;
 }
 
+
+//Login/register functions
+//______________________________________________________________________________________________________________
+//Login/register menu
+//______________________________________________________________________________________________________________
 void loginregmenu() {
     int userselect = 0;
 
@@ -166,7 +180,7 @@ void loginregmenu() {
     cin >> userselect;
     cin.clear();
     if (userselect == 1) {
-        //login(userloggedin); // go to login menu
+        login(userloggedin); // go to login menu
         //after login will need to go to menu screen asks user to order/make complaint etc.
     }
     else if (userselect == 2) {
@@ -194,17 +208,92 @@ void loginregmenu() {
     } // if user puts invalid entry
 }
 
+//Login option functions
+//______________________________________________________________________________________________________________
+void userlogin(user& userlog, string searchusername, string password) {
+    ifstream readfile;
+    readfile.open("user.csv"); // read file
+    string type, username, passwd, fname, lname, gender, dob, contactnum, email, cardnum, cardexp, cardcvv; // strings to store each cell from csv file.
+    bool userfound = false; // check if user exists
 
+    while (getline(readfile, type, ',') && !userfound) {
+        getline(readfile, username, ',');
+        getline(readfile, passwd, ',');
+        getline(readfile, fname, ',');
+        getline(readfile, lname, ',');
+        getline(readfile, gender, ',');
+        getline(readfile, dob, ',');
+        getline(readfile, contactnum, ',');
+        getline(readfile, email, ',');
+        getline(readfile, cardnum, ',');
+        getline(readfile, cardexp, ',');
+        getline(readfile, cardcvv, '\n');// loop through entries
 
+        if (username == searchusername && passwd == password) {
+            userfound = true; // can stop when user found
+            userlog.type = type;
+            userlog.username = username;
+            userlog.password = passwd;
+            userlog.namefirst = fname;
+            userlog.namelast = lname;
+            userlog.gender = gender;
+            userlog.dob = dob;
+            userlog.contactnumber = contactnum;
+            userlog.email = email;
+            userlog.usercard.cardnumber = cardnum;
+            userlog.usercard.expiry = cardexp;
+            userlog.usercard.cvv = cardcvv;
+        }
+    }
+    if (!userfound) {
+        cout << "Sorry that username does not exist.\n"; // if user not found
+        readfile.close();
+        login(userlog);
+    }
+    else if (passwd != password) {
+        string newpassword;
+        cout << "Incorrect password\n"; // if the password is not the same as the users password
+        cout << "please enter your password or enter b to go back: ";
+        cin >> newpassword;
+        if (newpassword != "b") {
+            readfile.close();
+            userlogin(userlog, searchusername, newpassword);
+        }
+    }
+    readfile.close();
+}
+
+void login(user& loginuser) {
+    string username;
+    string password;
+    bool loginattempt = false; // false if attempt fails
+    cout << "login or enter b to go back\n"; // gives user option to go back
+    cout << "Enter your username: ";
+    cin >> username;
+    if (username == "b") { // don't run rest of code if user enters b
+        main();
+        return;
+    }
+    cout << "Enter your password: ";
+    cin >> password;
+    if (password == "b") {// don't run rest of code if user enters b
+        main();
+        return;
+    }
+    else {
+        userlogin(loginuser, username, password); // check that login details are correct.
+    }
+    //main(); // change to other menu when code combined
+}
 
 
 //___________________________________________________________________________________________________________________________________________________________
 //restaurant menu system
-#include <iostream>
-#include <vector>
-#include <map>
-using namespace std;
-int main() {
+//#include <iostream>
+//#include <vector> commented have these at top of file
+//#include <map>
+//using namespace std;
+int main() { //after logging in user to go to this menu. will want alternative name.
     int option, order, payment, complaint;
     char choice;
 
