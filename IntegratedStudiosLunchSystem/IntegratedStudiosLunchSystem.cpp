@@ -2,14 +2,52 @@
 // will combine code
 
 #include <iostream>
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
 using namespace std;
 
+
+//Structs
+//______________________________________________________________________________________________________________
+struct carddetails { // credit card struct
+    string cardnumber;
+    string expiry;
+    string cvv;
+
+    carddetails(string c = "", string e = "", string cv = "") {
+        cardnumber = c;
+        expiry = e;
+        cvv = cv;
+    }
+};
+
+struct user { // user struct
+    string type;
+    string username;
+    string password;
+    string namefirst;
+    string namelast;
+    string gender;
+    string dob;
+    string contactnumber;
+    string email;
+    carddetails usercard;
+};
+
+
+//Functions templates
+//______________________________________________________________________________________________________________
 void weeklymenu();
 void mainmenu();
 void bookingdiscount();
 void contactdetails();
 void loginregmenu();
 
+
+//main()
+//______________________________________________________________________________________________________________
 int main() {
     int userchoice;
     mainmenu();
@@ -43,6 +81,9 @@ int main() {
 
 }
 
+
+//Functions
+//______________________________________________________________________________________________________________
 void mainmenu() {
     
 
