@@ -8,6 +8,7 @@ void weeklymenu();
 void mainmenu();
 void bookingdiscount();
 void contactdetails();
+void loginregmenu();
 
 int main() {
     int userchoice;
@@ -17,27 +18,28 @@ int main() {
     switch (userchoice) {
    
     case 1:
-    weeklymenu();
-    main();
-    break;
+        weeklymenu();
+        main();
+        break;
 
 
     case 2:
-    bookingdiscount();
-    main();
-    break;
+        bookingdiscount();
+        main();
+        break;
     
 
     case 3:
-    contactdetails();
-    main();
-    break;
+        contactdetails();
+        main();
+        break;
         
+    case 4:
+        loginregmenu();
+        break;
     }
     return 0;
     
-
-
 
 }
 
@@ -108,9 +110,54 @@ void contactdetails() {
     cout << endl;
 }
 
+void loginregmenu() {
+    int userselect = 0;
+
+    cout << " ______________________\n"; // display menu
+    cout << "| Login/Register       |\n";
+    cout << "|______________________|\n";
+    cout << "| 1. Login             |\n";
+    cout << "| 2. Register          |\n";
+    cout << "| 3. Forgot password   |\n";
+    cout << "| 4. Back              |\n";
+    cout << "|______________________|\n\n";
+    cout << "Please select the corresponding number: ";
+    cin >> userselect;
+    cin.clear();
+    if (userselect == 1) {
+        //login(userloggedin); // go to login menu
+        //after login will need to go to menu screen asks user to order/make complaint etc.
+    }
+    else if (userselect == 2) {
+        //int back = setusertype();
+        //if (back != 3) { // register new user
+            //reg();
+            //main();
+        //}
+        //else {
+            //main();
+        //}
+    }
+    else if (userselect == 3) {
+        //passwordreset(); // reset password
+       // main();
+    }
+    else if (userselect == 4) {
+        //userupdate();
+        //mainmenu();
+        //return 0;
+    }
+    else {
+        cout << "invalid input.\n";
+        loginregmenu();
+    } // if user puts invalid entry
+}
 
 
 
+
+
+//___________________________________________________________________________________________________________________________________________________________
 //restaurant menu system
 #include <iostream>
 #include <vector>
