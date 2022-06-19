@@ -56,12 +56,18 @@ void userlogin(user& userlog, string searchusername, string password);
 void login(user& loginuser);
 //register functions templates
 //______________________________________________________________________________________________________________
+void writetofile(string stringinput, int intinput, long long int longintinput, int newline);
 bool validestring(int validatetype, string checkstring);
 bool valideint(int checkint, int checklow, int checkhigh);
 bool validecard(long long int checkint, long long int checklow, long long int checkhigh);
 bool validecardexp(int checkint);
 int setusertype();
 void reg();
+//reset passwords templates
+//______________________________________________________________________________________________________________
+bool searchuser(string searchusername);
+void passwordreset();
+void setnewpasswoord(string checkusername, string newpassword);
 
 //main()
 //______________________________________________________________________________________________________________
@@ -202,13 +208,11 @@ void loginregmenu() {
         }
     }
     else if (userselect == 3) {
-        //passwordreset(); // reset password
-       // main();
+        passwordreset(); // reset password
+        loginregmenu();
     }
     else if (userselect == 4) {
-        //userupdate();
-        //mainmenu();
-        //return 0;
+        main();
     }
     else {
         cout << "invalid input.\n";
@@ -296,6 +300,33 @@ void login(user& loginuser) {
 
 //register option functions
 //______________________________________________________________________________________________________________
+
+void writetofile(string stringinput, int intinput, long long int longintinput, int newline) { // add details to user file when registering
+    fstream readuserfile;
+    readuserfile.open("user.csv", fstream::app);
+
+    if (readuserfile.is_open()) {
+        if (stringinput != "pass") {
+            readuserfile << stringinput << ","; // allow for string input
+        }
+        else if (intinput != 0) { // allow for int input
+            if (newline == 0) {
+                readuserfile << intinput << ",";
+            }
+            else {
+                readuserfile << intinput << "\n";
+            }
+        }
+        else if (longintinput != 0) { // allow for long long int input
+            readuserfile << longintinput << ",";
+
+        }
+        readuserfile.close();
+    }
+    else {
+        cout << "error: could not write to file.";
+    }
+}
 
 bool validestring(int validatetype, string checkstring) {
     if (validatetype == 1) {
@@ -544,6 +575,117 @@ void reg() { // register new user and add their details to file.
     writetofile("pass", cardcvv, 0, 1);
 }
 
+//forgot password option functions
+//______________________________________________________________________________________________________________
+bool searchuser(string searchusername) {
+    ifstream readfile;
+    readfile.open("user.csv");
+    string type, username, rest;
+    bool userfound = false;
+
+    while (getline(readfile, type, ',') && !userfound) {
+        getline(readfile, username, ',');
+        getline(readfile, rest, '\n');
+        if (username == searchusername) {
+            userfound = true;
+        }
+    }
+    readfile.close();
+    return userfound; // check that username exists, return true or false
+}
+
+void passwordreset() {
+    bool userexists = false;
+    bool match = false;
+    string username;
+    string password;
+    cout << "enter your username or type b to go back: ";
+    while (!userexists) { // check username exists
+        cin >> username;
+        if (username == "b") {
+            return;
+        }
+        userexists = searchuser(username);
+        if (!userexists) {
+            cout << "That username does not exist, please enter your username or enter b to go back: ";
+        }
+    }
+    while (!match) { // user to enter new password and retype it to confirm.
+        string confirm;
+        cout << "Enter new password: ";
+        cin >> password;
+        cout << "confirm your password: ";
+        cin >> confirm;
+        if (password != confirm) {
+            cout << "Sorry, that is not a match.\n";
+        }
+        else {
+            cout << "Your password has been set.\n";
+            match = true;
+        }
+    }
+    setnewpasswoord(username, password); // function changes the password
+}
+
+void setnewpasswoord(string checkusername, string newpassword) {
+    ifstream readfile;
+    ofstream writefile;
+    readfile.open("user.csv");
+    vector<string> storevalues; // store everything on file in a vector
+    string type, username, passwd, fname, lname, gender, dob, contactnum, email, cardnum, cardexp, cardcvv;
+
+    while (getline(readfile, type, ',')) {
+        storevalues.push_back(type);
+        storevalues.push_back(",");
+        getline(readfile, username, ',');
+        storevalues.push_back(username);
+        storevalues.push_back(",");
+        getline(readfile, passwd, ',');
+        if (username == checkusername) { // if username is what user had input save new password instead of old
+            storevalues.push_back(newpassword);
+            storevalues.push_back(",");
+        }
+        else { // for all other users store their current passwords
+            storevalues.push_back(passwd);
+            storevalues.push_back(",");
+        }
+        getline(readfile, fname, ',');
+        storevalues.push_back(fname);
+        storevalues.push_back(",");
+        getline(readfile, lname, ',');
+        storevalues.push_back(lname);
+        storevalues.push_back(",");
+        getline(readfile, gender, ',');
+        storevalues.push_back(gender);
+        storevalues.push_back(",");
+        getline(readfile, dob, ',');
+        storevalues.push_back(dob);
+        storevalues.push_back(",");
+        getline(readfile, contactnum, ',');
+        storevalues.push_back(contactnum);
+        storevalues.push_back(",");
+        getline(readfile, email, ',');
+        storevalues.push_back(email);
+        storevalues.push_back(",");
+        getline(readfile, cardnum, ',');
+        storevalues.push_back(cardnum);
+        storevalues.push_back(",");
+        getline(readfile, cardexp, ',');
+        storevalues.push_back(cardexp);
+        storevalues.push_back(",");
+        getline(readfile, cardcvv, '\n');
+        storevalues.push_back(cardcvv);
+        storevalues.push_back("\n");
+    }
+    readfile.close();
+    writefile.open("user.csv");
+
+    vector<string> ::iterator i;
+    for (i = storevalues.begin(); i != storevalues.end(); i++) {
+        writefile << *i; // rewrite everything back to the file with password changed.
+    }
+    writefile.close();
+}
 
 //___________________________________________________________________________________________________________________________________________________________
 //restaurant menu system
