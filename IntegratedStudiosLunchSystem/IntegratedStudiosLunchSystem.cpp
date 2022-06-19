@@ -54,6 +54,14 @@ void contactdetails();
 void loginregmenu();
 void userlogin(user& userlog, string searchusername, string password);
 void login(user& loginuser);
+//register functions templates
+//______________________________________________________________________________________________________________
+bool validestring(int validatetype, string checkstring);
+bool valideint(int checkint, int checklow, int checkhigh);
+bool validecard(long long int checkint, long long int checklow, long long int checkhigh);
+bool validecardexp(int checkint);
+int setusertype();
+void reg();
 
 //main()
 //______________________________________________________________________________________________________________
@@ -184,14 +192,14 @@ void loginregmenu() {
         //after login will need to go to menu screen asks user to order/make complaint etc.
     }
     else if (userselect == 2) {
-        //int back = setusertype();
-        //if (back != 3) { // register new user
-            //reg();
-            //main();
-        //}
-        //else {
-            //main();
-        //}
+        int back = setusertype();
+        if (back != 3) { // register new user
+            reg();
+            loginregmenu();
+        }
+        else {
+            loginregmenu();
+        }
     }
     else if (userselect == 3) {
         //passwordreset(); // reset password
@@ -284,6 +292,256 @@ void login(user& loginuser) {
         userlogin(loginuser, username, password); // check that login details are correct.
     }
     //main(); // change to other menu when code combined
+}
+
+//register option functions
+//______________________________________________________________________________________________________________
+
+bool validestring(int validatetype, string checkstring) {
+    if (validatetype == 1) {
+        if (checkstring == "male" || checkstring == "female" || checkstring == "other") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else if (validatetype == 2) {
+        if (checkstring.find('@') != string::npos) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+} // when registering check that inputs meet criteria
+
+bool valideint(int checkint, int checklow, int checkhigh) {
+    if (checkint > checklow && checkint < checkhigh) {
+        return true;
+    }
+    else {
+        return false;
+    } // when registering check that int is within valid range of numbers
+}
+
+bool validecard(long long int checkint, long long int checklow, long long int checkhigh) {
+    if (checkint > checklow && checkint < checkhigh) {
+        return true;
+    }
+    else {
+        return false;
+    } // check that card number is valid (had to be long long int as cards use 16 digits
+}
+
+bool validecardexp(int checkint) { // check if expiry date input on card is valid
+    if (checkint % 100 >= 22 && checkint % 100 < 27) { // give 5 years for card to expire
+        if (checkint % 100 == 22) {
+            if (checkint >= 600 && checkint <= 1222) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (checkint % 100 == 27) {
+            if (checkint >= 100 && checkint <= 727) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else if (checkint >= 123 && checkint <= 1226) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+int setusertype() {
+    int choice;
+
+    cout << "are you a parent or staff?\n\n";
+    cout << " ______________________\n";
+    cout << "| Register             |\n";
+    cout << "|______________________|\n";
+    cout << "| 1. parent            |\n";
+    cout << "| 2. staff             |\n";
+    cout << "| 3. Back              |\n";
+    cout << "|______________________|\n";
+    cin >> choice; // set if parent or staff acount
+
+    if (choice == 1) {
+        writetofile("parent", 0, 0, 0);
+        return choice;
+    }
+    else if (choice == 2) {
+        writetofile("staff", 0, 0, 0);
+        return choice;
+    }
+    else if (choice == 3) {
+        return choice;
+    }
+    else {
+        "invalid choice, please select the corresponding number: ";
+        setusertype();
+    }
+}
+
+void reg() { // register new user and add their details to file.
+    bool match = false;
+    string username;
+    string password;
+    string gen;
+    int bday;
+    int bmonth;
+    int byear;
+    string email;
+    long long int cardnum;
+    int cardexp;
+    int cardcvv;
+    bool validusername = false;
+    bool validgen = false;
+    bool validday = false;
+    bool validmonth = false;
+    bool validyear = false;
+    bool validemail = false;
+    bool validcardnum = false;
+    bool validcardexp = false;
+    bool validcardcvv = false;
+
+    cout << "Choose a username: ";
+    while (!validusername) {
+        cin >> username;
+        bool userexist = searchuser(username);
+        if (username != "b") {
+            if (!userexist) {
+                validusername = true;
+            }
+            else {
+                cout << username << " already exists. Please enter another username: ";
+            }
+        }
+        else {
+            cout << "user name cannot be " << username << " please enter another username: ";
+        }
+    }
+    writetofile(username, 0, 0, 0);
+    cin.ignore();
+    while (!match) {
+        string confirm;
+        bool validpassword = false;
+        cout << "Enter a password: ";
+        while (!validpassword) {
+            cin >> password;
+            if (password != "b") {
+                validpassword = true;
+            }
+            else {
+                cout << "password cannot be " << password << " please enter another password: ";
+            }
+        }
+        cout << "confirm your password: ";
+        cin >> confirm;
+        if (password != confirm) {
+            cout << "Sorry, that is not a match.\n";
+        }
+        else {
+            cout << "Your password has been set.\n\n";
+            match = true;
+        }
+    }
+    writetofile(password, 0, 0, 0);
+    string firstname;
+    cout << "Enter your first name: ";
+    cin >> firstname;
+    writetofile(firstname, 0, 0, 0);
+    string lastname;
+    cout << "Enter your last name: ";
+    cin >> lastname;
+    writetofile(lastname, 0, 0, 0);
+    cout << "Enter your gender (male, female, other): ";
+    while (!validgen) {
+        cin >> gen;
+        cin.ignore();
+        validgen = validestring(1, gen);
+        if (!validgen) {
+            cout << "Invalid entry, please enter male, female or other: ";
+        }
+    }
+    writetofile(gen, 0, 0, 0);
+    cout << "Enter your date of birth, first enter day of month you were born (dd): ";
+    while (!validday) {
+        cin >> bday;
+        validday = valideint(bday, 0, 32);
+        if (!validday) {
+            cout << "Invalid entry, please enter day of month you were born (dd): ";
+        }
+    }
+    cout << "Enter the month you were born (mm): ";
+    while (!validmonth) {
+        cin >> bmonth;
+        validmonth = valideint(bmonth, 0, 13);
+        if (!validmonth) {
+            cout << "Invalid entry, please enter the month you were born (mm): ";
+        }
+    }
+    cout << "Enter the year you were born (yyyy): ";
+    while (!validyear) {
+        cin >> byear;
+        validyear = valideint(byear, 1900, 2023);
+        if (!validyear) {
+            cout << "Invalid entry, please enter the year you were born (yyyy): ";
+        }
+    }
+    int dob = bday * 1000000 + bmonth * 10000 + byear;
+    writetofile("pass", dob, 0, 0);
+    cout << "enter a contact number: ";
+    string contactnum;
+    cin >> contactnum;
+    writetofile(contactnum, 0, 0, 0);
+    cout << "please enter your email address: ";
+    while (!validemail) {
+        cin >> email;
+        validemail = validestring(2, email);
+        if (!validemail) {
+            cout << "Invalid entry, please enter a valid email address: ";
+        }
+    }
+    writetofile(email, 0, 0, 0);
+    cout << "please enter your credit card details.\nFirst, please enter the 16 digit card number: ";
+    while (!validcardnum) {
+        cin >> cardnum;
+        validcardnum = validecard(cardnum, 999999999999999, 10000000000000000);
+        if (!validcardnum) {
+            cout << "Invalid entry, please enter a valid 16 digit card number: ";
+        }
+    }
+    writetofile(to_string(cardnum), 0, 0, 0);
+    cout << "Please enter the cards expiry date (mmyy): ";
+    while (!validcardexp) {
+        cin >> cardexp;
+        validcardexp = validecardexp(cardexp);
+        if (!validcardexp) {
+            cout << "Invalid entry, please enter a valid expiry date (mmyy): ";
+        }
+    }
+    writetofile("pass", cardexp, 0, 0);
+    cout << "Please enter the 3 digit CVV number on the back of your card: ";
+    while (!validcardcvv) {
+        cin >> cardcvv;
+        validcardcvv = valideint(cardcvv, 99, 1000);
+        if (!validcardcvv) {
+            cout << "Invalid entry, please enter the 3-digit CVV number: ";
+        }
+    }
+    writetofile("pass", cardcvv, 0, 1);
 }
 
 
