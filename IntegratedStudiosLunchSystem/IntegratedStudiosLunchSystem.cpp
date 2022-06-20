@@ -68,6 +68,9 @@ void reg();
 bool searchuser(string searchusername);
 void passwordreset();
 void setnewpasswoord(string checkusername, string newpassword);
+//restaurant system templates
+//______________________________________________________________________________________________________________
+void restaurant();
 
 //main()
 //______________________________________________________________________________________________________________
@@ -687,261 +690,234 @@ void setnewpasswoord(string checkusername, string newpassword) {
     writefile.close();
 }
 
-//___________________________________________________________________________________________________________________________________________________________
 //restaurant menu system
-//#include <iostream>
-//#include <vector> commented have these at top of file
-//#include <map>
+//__________________________________________________________________________
+
 //using namespace std;
-int main() { //after logging in user to go to this menu. will want alternative name.
+void restaurant() {
     int option, order, payment, complaint;
     char choice;
 
     cout << endl;
-    cout << "\t\t\t\t-------------------Food Ordering System-------------------" << endl;
+    cout << "\t\t\t\t-------------------food ordering system-------------------" << endl;
     cout << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-    cout << "\t\t\t\t|                    Main Menu                                 |" << endl;
+    cout << "\t\t\t\t|                    main menu                                 |" << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-    cout << "\t\t\t\t| 1. Order food/View Menu                                      |" << endl;
-    cout << "\t\t\t\t| 2. Make Complaint Discounts                                  |" << endl;
-    cout << "\t\t\t\t| 3. Bulk Payment                                              |" << endl;
-    cout << "\t\t\t\t| 4. Update Details                                            |" << endl;
-    cout << "\t\t\t\t| 5. Logout                                                    |" << endl;
+    cout << "\t\t\t\t| 1. order food/view menu                                      |" << endl;
+    cout << "\t\t\t\t| 2. make complaint discounts                                  |" << endl;
+    cout << "\t\t\t\t| 3. bulk payment                                              |" << endl;
+    cout << "\t\t\t\t| 4. update details                                            |" << endl;
+    cout << "\t\t\t\t| 5. logout                                                    |" << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-    cout << "\t\t Please input your choice: ";
+    cout << "\t\t please input your choice: ";
     cin >> option;
     cout << endl;
 
     switch (option)
     {
-    case 1:
-    {
-        // Weekly Menu
-        cout << "\n\n\t\t\t\t\t\t-----Order food/View Menu-----" << endl;
-        cout << endl;
-        cout << "1.\t\t\t\t\t\t2.\t\t\t\t\t\t3." << endl;
-        cout << "Spinach Salad\t\t\t\t\tPulled Pork\t\t\t\t\tSpaghetti Bolognese" << endl;
-        cout << "-------------\t\t\t\t\t-------------\t\t\t\t\t--------------" << endl;
-        cout << "French spinach with mushrooms\t\t\tRoasted pork simmered in\t\t\tServe with a sauce\nhard boiled egg and\t\t\t\ttangy BBQ sauce and\t\t\t\tmade from tomatoes minced\nwarm bacon vinaigrette.\t\t\t\tserved on a toasted\t\t\t\tbeef, garlic and herb" << endl;
-        cout << "-------------\t\t\t\t\t-------------\t\t\t\t\t--------------" << endl;
-        cout << "Vegan:No Gluten Free:No\t\t\t\tVegan:No Gluten Free:No\t\t\t\tVegan:No Gluten Free:No\n$9.95\t\t\t\t\t\t$7.95\t\t\t\t\t\t$6.50" << endl;
-        cout << endl;
-        cout << "4.\t\t\t\t\t\t5.\t\t\t\t\t\t6." << endl;
-        cout << "Chicken Fried Rice\t\t\t\tVeggie Burger\t\t\t\t\tGrilled Cheese" << endl;
-        cout << "-------------\t\t\t\t\t-------------\t\t\t\t\t--------------" << endl;
-        cout << "Rice with chicken eggs\t\t\t\tPatty made with herbs\t\t\t\tAmerican Cheddar and Mozzarella\nonions carrots and peas.\t\t\ttofu and mushroom topped\t\t\t\t\n\t\t\t\t\t\twith caramelised onions.\t\t\t\t" << endl;
-        cout << "-------------\t\t\t\t\t-------------\t\t\t\t\t--------------" << endl;
-        cout << "Vegan:No Gluten Free:No\t\t\t\tVegan:Yes Gluten Free:No\t\t\tVegan:No Gluten Free:No\n$ 8.00\t\t\t\t\t\t$7.50\t\t\t\t\t\t$6.00" << endl;
-        cout << endl;
-        cout << "1. Order Meal" << endl;
-        cout << "2. Print Meal Details" << endl;
-        cout << "3. Checkout" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Choose an option: ";
-        cin >> order;
-        cout << endl;
-
-        switch (order)
-        {
         case 1:
-            cout << "Available Menu: ";
+        {
+            // weekly menu
+            weeklymenu()
             cout << endl;
-            cout << "1. Spinach Salad" << endl;
-            cout << "2. Pulled Pork" << endl;
-            cout << "3. Spaghetti Bolognese" << endl;
-            cout << "4. Chicken Fried Rice" << endl;
-            cout << "5. Veggie Burger" << endl;
-            cout << "6. Grilled Cheese" << endl;
-            cout << endl;
-            cout << "Please select your preffered menu: ";
+            cout << "1. order meal" << endl;
+            cout << "2. print meal details" << endl;
+            cout << "3. checkout" << endl;
+            cout << "4. exit" << endl;
+            cout << "choose an option: ";
             cin >> order;
             cout << endl;
-            break;
-        case 2:
-            cout << "You selected Spinach Salad, view details below: ";
-            cout << endl;
-            cout << "Spinach Salad:\nFrench spinach with mushrooms\nhard boiled egg and\nwarm bacon vinaigrette\n---------\nVegan:No Gluten Free:No\n$9.95\n" << endl;
-            cout << endl;
-            cout << "Proceed to checkout: ";
-            cout << endl;
-            break;
-        case 3:
-            cout << "You selected Spinach Salad, please pay: $9.95 only" << endl;
-            cout << "=================Thank you for your order===========================" << endl;
-            break;
-        case 4:
-            cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-            cout << "\t\t\t\t|                    Main Menu                                 |" << endl;
-            cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-            cout << "\t\t\t\t| 1. Order food/View Menu                                      |" << endl;
-            cout << "\t\t\t\t| 2. Make Complaint                                            |" << endl;
-            cout << "\t\t\t\t| 3. Bulk Payment                                              |" << endl;
-            cout << "\t\t\t\t| 4. Update Details                                            |" << endl;
-            cout << "\t\t\t\t| 5. Logout                                                    |" << endl;
-            cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-            cout << "\t\t Please input your choice: ";
-            cin >> option;
-            cout << endl;
-            break;
-        }
-    }break;
-    case 2:
-    {
-        cout << "\n\n\t\t\t\t\t\t\t-----------------Make Complaint------------------" << endl;
-        cout << endl;
-        cout << "Make complaint on :" << endl;
-        cout << endl;
-        cout << "1. Food related" << endl;
-        cout << "2. Service related" << endl;
-        cout << "3. Others" << endl;
-        cout << "Choose an option: ";
-        cin >> complaint;
-        cout << endl;
-        switch (complaint)
-        {
-        case 1:
-            cout << "Please elaborate on your complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "Press Y to submit complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "Press N to ammend complaint: ";
-            cin >> complaint;
-            cout << endl;
-            break;
 
-        case 2:
-            cout << "Please elaborate on your complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "Press Y to submit complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "Press N to ammend complaint: ";
-            cin >> complaint;
-            cout << endl;
-            break;
-        case 3:
-            cout << "Please elaborate on your complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "Press Y to submit complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "Press N to ammend complaint: ";
-            cin >> complaint;
-            cout << endl;
-            break;
-        }
-
-    }break;
-    case 3:
-    {
-        // Bulk Payment
-        cout << "\n\n\t\t\t\t\t\t-----Bulk Booking Discount-----" << endl;
-        cout << endl;
-        cout << "1.\t\t\t\t\t\t\t2.\t\t\t\t\t\t\t\t3." << endl;
-        cout << "Gold Ticket\t\t\t\t\t\tSilver Ticket\t\t\t\t\t\t\tBronze Ticket" << endl;
-        cout << "-------------\t\t\t\t\t\t-------------\t\t\t\t\t\t\t--------------" << endl;
-        cout << "Pay for 30 days and receive a \t\t\t\tPay for 15 days and receive a \t\t\t\t\tPay for 7 days and receive a" << endl;
-        cout << "\n15% discount\t\t\t\t\t\t10% discount\t\t\t\t\t\t\t5% discount" << endl;
-        cout << endl;
-        cout << "\nWithout ticket : $175\t\t\t\t\tWithout ticket : $125\t\t\t\t\t\tWithout ticket : $75" << endl;
-        cout << "\nWith ticket : $148.75\t\t\t\t\tWith ticket : $112.50\t\t\t\t\t\tWith ticket : $71.25" << endl;
-        cout << "\nYou save: $26.25\t\t\t\t\tYou save: $12.50\t\t\t\t\t\tYou save: $3.75" << endl;
-        cout << endl;
-        cout << endl;
-        cout << endl;
-        cout << "1. Order Ticket" << endl;
-        cout << "2. Print Ticket Details" << endl;
-        cout << "3. Checkout" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Choose an option: ";
-        cin >> payment;
-        cout << endl;
-
-        switch (payment)
-        {
-        case 1:
-            cout << "Order Ticket";
-            cout << endl;
-            cout << "1. Gold" << endl;
-            cout << "2. Silver" << endl;
-            cout << "3. Bronze" << endl;
-            cout << endl;
-            cout << "Please choose ticket you would like to purchase:  ";
-            cin >> payment;
-            cout << endl;
-            break;
-        case 2:
-            cout << "Ticket details";
-            cout << endl;
-            cout << "Ticket Name: " << endl;
-            cout << "Date: " << endl;
-            cout << "Quantity: " << endl;
-            cout << "Price: " << endl;
-            cout << "Total: " << endl;
-            cout << endl;
-            cout << "Press any key to go back: ";
-            cin >> payment;
-            cout << endl;
-            break;
-        case 3:
-            int menuId;
-            map<int, map<string, int>> foods;
-            foods[1]["Spinach Salad"] = 9.95;
-            foods[2]["Pulled Pork"] = 7.95;
-            foods[3]["Sphaghetti Bolognese"] = 6.50;
-            foods[4]["Chicken Fried Rice"] = 8.00;
-            foods[5]["Veggie Burger"] = 7.50;
-            foods[6]["Grilled Cheese"] = 6.00;
-
-            vector<int> orderedItems;
-            int total = 0;
-            cout << "Ticket details";
-            cout << endl;
-            cout << "Ticket Name ......... ........ " << endl;
-            cout << "Quantity ........ " << endl;
-            cout << "Price ........... " << endl;
-            cout << "Total ........ " << endl;
-            cout << endl;
-            cout << "Press 1 to proceed: ";
-            cin >> payment;
-            cout << endl;
-
-            int proceed;
-            cout << "1. Pay now " << endl;
-            cout << "2. Pay later " << endl;
-            cout << "3. Exit" << endl;
-            cout << "Choose option: ";
-            cin >> proceed;
-            cout << endl;
-
-            cout << "*** CHECKOUT #1 ***\n";
-            cout << "Order Items: ";
-            for (int& i : orderedItems) {
-                auto f = foods.find(i);
-                map<string, int> y = f->second;
-                cout << "[" << y.begin()->first << "]";
-                total += y.begin()->second;
+            switch (order)
+            {
+            case 1:
+                cout << "available menu: ";
+                cout << endl;
+                cout << "1. spinach salad" << endl;
+                cout << "2. pulled pork" << endl;
+                cout << "3. spaghetti bolognese" << endl;
+                cout << "4. chicken fried rice" << endl;
+                cout << "5. veggie burger" << endl;
+                cout << "6. grilled cheese" << endl;
+                cout << endl;
+                cout << "please select your preffered menu: ";
+                cin >> order;
+                cout << endl;
+                break;
+            case 2:
+                cout << "you selected spinach salad, view details below: ";
+                cout << endl;
+                cout << "spinach salad:\nfrench spinach with mushrooms\nhard boiled egg and\nwarm bacon vinaigrette\n---------\nvegan:no gluten free:no\n$9.95\n" << endl;
+                cout << endl;
+                cout << "proceed to checkout: ";
+                cout << endl;
+                break;
+            case 3:
+                cout << "you selected spinach salad, please pay: $9.95 only" << endl;
+                cout << "=================thank you for your order===========================" << endl;
+                break;
+            case 4:
+                restaurant();
+                break;
             }
-            cout << "\nTotal Price: $" << total << "\n\n";
+        }break;
+        case 2:
+        {
+            cout << "\n\n\t\t\t\t\t\t\t-----------------make complaint------------------" << endl;
+            cout << endl;
+            cout << "make complaint on :" << endl;
+            cout << endl;
+            cout << "1. food related" << endl;
+            cout << "2. service related" << endl;
+            cout << "3. others" << endl;
+            cout << "choose an option: ";
+            cin >> complaint;
+            cout << endl;
+            switch (complaint)
+            {
+            case 1:
+                cout << "please elaborate on your complaint: ";
+                cin >> complaint;
+                cout << endl;
+                cout << "press y to submit complaint: ";
+                cin >> complaint;
+                cout << endl;
+                cout << "press n to ammend complaint: ";
+                cin >> complaint;
+                cout << endl;
+                break;
 
-            int payMethod;
-            cout
-                << "Choose your payment method:\n"
-                << "1. Visacard\n"
-                << "2. Mastercard\n"
-                << "3. Online Banking\n\n"
-                << "Enter ID: ";
-            cin >> payMethod;
-            cout << "\n\n[Payment accepted] Happy meal!";
+            case 2:
+                cout << "please elaborate on your complaint: ";
+                cin >> complaint;
+                cout << endl;
+                cout << "press y to submit complaint: ";
+                cin >> complaint;
+                cout << endl;
+                cout << "press n to ammend complaint: ";
+                cin >> complaint;
+                cout << endl;
+                break;
+            case 3:
+                cout << "please elaborate on your complaint: ";
+                cin >> complaint;
+                cout << endl;
+                cout << "press y to submit complaint: ";
+                cin >> complaint;
+                cout << endl;
+                cout << "press n to ammend complaint: ";
+                cin >> complaint;
+                cout << endl;
+                break;
+            }
 
-            menuId = 0; /* exit program */
-            break;
-        }
-    } break;
+        }break;
+        case 3:
+        {
+            // bulk payment
+            cout << "\n\n\t\t\t\t\t\t-----bulk booking discount-----" << endl;
+            cout << endl;
+            cout << "1.\t\t\t\t\t\t\t2.\t\t\t\t\t\t\t\t3." << endl;
+            cout << "gold ticket\t\t\t\t\t\tsilver ticket\t\t\t\t\t\t\tbronze ticket" << endl;
+            cout << "-------------\t\t\t\t\t\t-------------\t\t\t\t\t\t\t--------------" << endl;
+            cout << "pay for 30 days and receive a \t\t\t\tpay for 15 days and receive a \t\t\t\t\tpay for 7 days and receive a" << endl;
+            cout << "\n15% discount\t\t\t\t\t\t10% discount\t\t\t\t\t\t\t5% discount" << endl;
+            cout << endl;
+            cout << "\nwithout ticket : $175\t\t\t\t\twithout ticket : $125\t\t\t\t\t\twithout ticket : $75" << endl;
+            cout << "\nwith ticket : $148.75\t\t\t\t\twith ticket : $112.50\t\t\t\t\t\twith ticket : $71.25" << endl;
+            cout << "\nyou save: $26.25\t\t\t\t\tyou save: $12.50\t\t\t\t\t\tyou save: $3.75" << endl;
+            cout << endl;
+            cout << endl;
+            cout << endl;
+            cout << "1. order ticket" << endl;
+            cout << "2. print ticket details" << endl;
+            cout << "3. checkout" << endl;
+            cout << "4. exit" << endl;
+            cout << "choose an option: ";
+            cin >> payment;
+            cout << endl;
+
+            switch (payment)
+            {
+            case 1:
+                cout << "order ticket";
+                cout << endl;
+                cout << "1. gold" << endl;
+                cout << "2. silver" << endl;
+                cout << "3. bronze" << endl;
+                cout << endl;
+                cout << "please choose ticket you would like to purchase:  ";
+                cin >> payment;
+                cout << endl;
+                break;
+            case 2:
+                cout << "ticket details";
+                cout << endl;
+                cout << "ticket name: " << endl;
+                cout << "date: " << endl;
+                cout << "quantity: " << endl;
+                cout << "price: " << endl;
+                cout << "total: " << endl;
+                cout << endl;
+                cout << "press any key to go back: ";
+                cin >> payment;
+                cout << endl;
+                break;
+            case 3:
+                int menuid;
+                map<int, map<string, int>> foods;
+                foods[1]["spinach salad"] = 9.95;
+                foods[2]["pulled pork"] = 7.95;
+                foods[3]["sphaghetti bolognese"] = 6.50;
+                foods[4]["chicken fried rice"] = 8.00;
+                foods[5]["veggie burger"] = 7.50;
+                foods[6]["grilled cheese"] = 6.00;
+
+                vector<int> ordereditems;
+                int total = 0;
+                cout << "ticket details";
+                cout << endl;
+                cout << "ticket name ......... ........ " << endl;
+                cout << "quantity ........ " << endl;
+                cout << "price ........... " << endl;
+                cout << "total ........ " << endl;
+                cout << endl;
+                cout << "press 1 to proceed: ";
+                cin >> payment;
+                cout << endl;
+
+                int proceed;
+                cout << "1. pay now " << endl;
+                cout << "2. pay later " << endl;
+                cout << "3. exit" << endl;
+                cout << "choose option: ";
+                cin >> proceed;
+                cout << endl;
+
+                cout << "*** checkout #1 ***\n";
+                cout << "order items: ";
+                for (int& i : ordereditems) {
+                    auto f = foods.find(i);
+                    map<string, int> y = f->second;
+                    cout << "[" << y.begin()->first << "]";
+                    total += y.begin()->second;
+                }
+                cout << "\ntotal price: $" << total << "\n\n";
+
+                int paymethod;
+                cout
+                    << "choose your payment method:\n"
+                    << "1. visacard\n"
+                    << "2. mastercard\n"
+                    << "3. online banking\n\n"
+                    << "enter id: ";
+                cin >> paymethod;
+                cout << "\n\n[payment accepted] happy meal!";
+
+                menuid = 0; /* exit program */
+                break;
+            }
+        } break;
     }
 }
