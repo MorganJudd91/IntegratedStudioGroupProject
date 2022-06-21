@@ -278,6 +278,11 @@ void userlogin(user& userlog, string searchusername, string password) {
             readfile.close();
             userlogin(userlog, searchusername, newpassword);
         }
+        else {
+            readfile.close();
+            loginregmenu();
+            return;
+        }
     }
     readfile.close();
 }
@@ -723,7 +728,8 @@ void restaurant() {
         case 1:
         {
             // weekly menu
-            weeklymenu()
+            weeklymenu();
+            int orderchoice = 7;
             cout << endl;
             cout << "1. add order" << endl;
             cout << "2. remove order" << endl;
@@ -737,7 +743,6 @@ void restaurant() {
             switch (order)
             {
             case 1:
-                int orderchoice = 7;
                 while (orderchoice > 6) {
                     cout << "available menu: ";
                     cout << endl;
@@ -1103,7 +1108,7 @@ bool userupdate(string username) { //when user selects to update details goes to
     if (userchoice != 1 && userchoice != 2 && userchoice != 3 && userchoice != 4 && userchoice != 5 && userchoice != 6) {
         cout << "invalid input, please enter corresponding number in list\n\n";
         readfile.close();
-        userupdate();
+        userupdate(username);
         return false; // if invalid input
     }
 
