@@ -706,6 +706,7 @@ void setnewpasswoord(string checkusername, string newpassword) {
 void restaurant() {
     int option, order, payment, complaint;
     char choice;
+    bool keepgoing = true;
 
     cout << endl;
     cout << "\t\t\t\t-------------------food ordering system-------------------" << endl;
@@ -743,7 +744,7 @@ void restaurant() {
             switch (order)
             {
             case 1:
-                while (orderchoice > 6) {
+                while (orderchoice != 1 && orderchoice != 2 && orderchoice != 3 && orderchoice != 4 && orderchoice != 5 && orderchoice != 6) {
                     cout << "available menu: ";
                     cout << endl;
                     cout << "1. spinach salad" << endl;
@@ -757,6 +758,7 @@ void restaurant() {
                     cin >> orderchoice;
                     addorder(userloggedin, orderchoice);
                     cout << endl;
+                    restaurant();
                 }
                 break;
             case 2:
@@ -765,8 +767,10 @@ void restaurant() {
                 cout << "Select the number order you want to remove: ";
                 cin >> ordernumtoremove;
                 removeitem(userloggedin.username, ordernumtoremove);
+                restaurant();
             case 3:
                 displayorders(userloggedin.username);
+                restaurant();
                 /*cout << "you selected spinach salad, view details below: ";
                 cout << endl;
                 cout << "spinach salad:\nfrench spinach with mushrooms\nhard boiled egg and\nwarm bacon vinaigrette\n---------\nvegan:no gluten free:no\n$9.95\n" << endl;
@@ -942,11 +946,13 @@ void restaurant() {
         } 
         break;
         case 4:
-            bool keepgoing = true;
             while (keepgoing) {
                 keepgoing = userupdate(userloggedin.username);
             }
             restaurant();
+            break;
+        case 5:
+            main();
             break;
     }
 }
