@@ -711,9 +711,10 @@ void setnewpasswoord(string checkusername, string newpassword) {
 
 //using namespace std;
 void restaurant() {
-    int option, order, payment, complaint;
-    char choice, confirmorder;
-    bool keepgoing = true;
+    int option, order, payment, complaint, bookingdiscounttype;
+    char choice, confirmorder, continuepaying;
+    bool keepgoing = true, correctcvv = false;
+    string cvv;
 
     cout << endl;
     cout << "\t\t\t\t-------------------food ordering system-------------------" << endl;
@@ -736,7 +737,6 @@ void restaurant() {
     case 1:
     {
         // weekly menu
-        weeklymenu();
         int orderchoice = 0;
         cout << endl;
         cout << "1. add order" << endl;
@@ -780,18 +780,35 @@ void restaurant() {
         case 3:
             displayorders(userloggedin.username);
             restaurant();
-            /*cout << "you selected spinach salad, view details below: ";
-            cout << endl;
-            cout << "spinach salad:\nfrench spinach with mushrooms\nhard boiled egg and\nwarm bacon vinaigrette\n---------\nvegan:no gluten free:no\n$9.95\n" << endl;
-            cout << endl;
-            cout << "proceed to checkout: ";
-            cout << endl;*/
             break;
         case 4:
             checkout(userloggedin, userloggedin.username);
             cout << "would you like to purchase this order with your registered card?";
             cin >> confirmorder;
             if (confirmorder == 'y') {
+                while (!correctcvv) {
+                    cout << "please enter your 3 digit cvv number: ";
+                    cin >> cvv;
+                    if (cvv == userloggedin.usercard.cvv) {
+                        cout << "Thank you, enjoy your meal.\n\n";
+                        removeallorders(userloggedin.username);
+                        main();
+                        correctcvv = true;
+                        break;
+                    }
+                    else {
+                        cout << "That is not the correct cvv number for your card, try again? (y to continue)";
+                        cin >> continuepaying;
+                        if (continuepaying == 'y') {
+
+                        }
+                        else {
+                            cout << "What would you like to do next? \n";
+                            restaurant();
+                            break;
+                        }
+                    }
+                }
                 cout << "Thank you, enjoy your meal.\n\n";
                 removeallorders(userloggedin.username);
                 restaurant();
@@ -824,35 +841,23 @@ void restaurant() {
             cout << "please elaborate on your complaint: ";
             cin >> complaint;
             cout << endl;
-            cout << "press y to submit complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "press n to ammend complaint: ";
-            cin >> complaint;
-            cout << endl;
+            cout << "Thank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << ", enjoy the rest of your day" << endl;
+            restaurant();
             break;
 
         case 2:
             cout << "please elaborate on your complaint: ";
             cin >> complaint;
             cout << endl;
-            cout << "press y to submit complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "press n to ammend complaint: ";
-            cin >> complaint;
-            cout << endl;
+            cout << "Thank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << ", enjoy the rest of your day" << endl;
+            restaurant();
             break;
         case 3:
             cout << "please elaborate on your complaint: ";
             cin >> complaint;
             cout << endl;
-            cout << "press y to submit complaint: ";
-            cin >> complaint;
-            cout << endl;
-            cout << "press n to ammend complaint: ";
-            cin >> complaint;
-            cout << endl;
+            cout << "Thank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << ", enjoy the rest of your day" << endl;
+            restaurant();
             break;
         }
 
@@ -860,17 +865,17 @@ void restaurant() {
     case 3:
     {
         // bulk payment
-        cout << "\n\n\t\t\t\t\t\t-----bulk booking discount-----" << endl;
+        cout << "\n\n\t\t\t\t-----bulk booking discount-----" << endl;
         cout << endl;
-        cout << "1.\t\t\t\t\t\t\t2.\t\t\t\t\t\t\t\t3." << endl;
-        cout << "gold ticket\t\t\t\t\t\tsilver ticket\t\t\t\t\t\t\tbronze ticket" << endl;
-        cout << "-------------\t\t\t\t\t\t-------------\t\t\t\t\t\t\t--------------" << endl;
-        cout << "pay for 30 days and receive a \t\t\t\tpay for 15 days and receive a \t\t\t\t\tpay for 7 days and receive a" << endl;
-        cout << "\n15% discount\t\t\t\t\t\t10% discount\t\t\t\t\t\t\t5% discount" << endl;
+        cout << "1.\t\t\t\t\t2.\t\t\t\t\t3." << endl;
+        cout << "gold ticket\t\t\t\tsilver ticket\t\t\t\tbronze ticket" << endl;
+        cout << "-------------\t\t\t\t-------------\t\t\t\t--------------" << endl;
+        cout << "pay for 30 days and receive a \t\tpay for 15 days and receive a \t\tpay for 7 days and receive a" << endl;
+        cout << "\n15% discount\t\t\t\t10% discount\t\t\t\t5% discount" << endl;
         cout << endl;
-        cout << "\nwithout ticket : $175\t\t\t\t\twithout ticket : $125\t\t\t\t\t\twithout ticket : $75" << endl;
-        cout << "\nwith ticket : $148.75\t\t\t\t\twith ticket : $112.50\t\t\t\t\t\twith ticket : $71.25" << endl;
-        cout << "\nyou save: $26.25\t\t\t\t\tyou save: $12.50\t\t\t\t\t\tyou save: $3.75" << endl;
+        cout << "\nwithout ticket : $175\t\t\twithout ticket : $125\t\t\twithout ticket : $75" << endl;
+        cout << "\nwith ticket : $148.75\t\t\twith ticket : $112.50\t\t\twith ticket : $71.25" << endl;
+        cout << "\nyou save: $26.25\t\t\tyou save: $12.50\t\t\tyou save: $3.75" << endl;
         cout << endl;
         cout << endl;
         cout << endl;
@@ -892,7 +897,7 @@ void restaurant() {
             cout << "3. bronze" << endl;
             cout << endl;
             cout << "please choose ticket you would like to purchase:  ";
-            cin >> payment;
+            cin >> bookingdiscounttype;
             cout << endl;
             break;
         case 2:
