@@ -731,7 +731,7 @@ void restaurant() {
     cout << "\t\t\t\t|                    main menu                                 |" << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
     cout << "\t\t\t\t| 1. order food/view menu                                      |" << endl;
-    cout << "\t\t\t\t| 2. make complaint discounts                                  |" << endl;
+    cout << "\t\t\t\t| 2. make complaint                                            |" << endl;
     cout << "\t\t\t\t| 3. bulk payment                                              |" << endl;
     cout << "\t\t\t\t| 4. update details                                            |" << endl;
     cout << "\t\t\t\t| 5. logout                                                    |" << endl;

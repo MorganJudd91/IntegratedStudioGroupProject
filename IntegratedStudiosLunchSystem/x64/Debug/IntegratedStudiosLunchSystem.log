@@ -1,2 +1,13 @@
 ﻿  IntegratedStudiosLunchSystem.cpp
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(960,41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(961,39): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(962,48): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(963,46): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(964,41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(965,42): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(723,10): warning C4101: 'choice': unreferenced local variable
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(1402,30): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(1405,30): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(366): warning C4715: 'validestring': not all control paths return a value
+C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\IntegratedStudiosLunchSystem.cpp(442): warning C4715: 'setusertype': not all control paths return a value
   IntegratedStudiosLunchSystem.vcxproj -> C:\Users\User\Desktop\IntegratedStudioGroupProject\IntegratedStudiosLunchSystem\x64\Debug\IntegratedStudiosLunchSystem.exe
