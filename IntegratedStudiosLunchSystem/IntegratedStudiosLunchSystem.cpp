@@ -62,7 +62,7 @@ bool valideint(int checkint, int checklow, int checkhigh);
 bool validecard(long long int checkint, long long int checklow, long long int checkhigh);
 bool validecardexp(int checkint);
 int setusertype();
-void reg();
+void reg(int staffparent);
 //reset passwords templates
 //______________________________________________________________________________________________________________
 bool searchuser(string searchusername);
@@ -83,6 +83,7 @@ void removeallorders(string username);
 //______________________________________________________________________________________________________________
 int main() {
     int userchoice;
+    writetofile("pass", 0, 0, 1);
     mainmenu();
     cin >> userchoice;
 
@@ -209,7 +210,7 @@ void loginregmenu() {
     else if (userselect == 2) {
         int back = setusertype();
         if (back != 3) { // register new user
-            reg();
+            reg(back);
             loginregmenu();
         }
         else {
@@ -323,19 +324,20 @@ void writetofile(string stringinput, int intinput, long long int longintinput, i
 
     if (readuserfile.is_open()) {
         if (stringinput != "pass") {
-            readuserfile << stringinput << ","; // allow for string input
+            readuserfile << stringinput; // allow for string input
         }
         else if (intinput != 0) { // allow for int input
-            if (newline == 0) {
-                readuserfile << intinput << ",";
-            }
-            else {
-                readuserfile << intinput << "\n";
-            }
+            readuserfile << intinput;
         }
         else if (longintinput != 0) { // allow for long long int input
-            readuserfile << longintinput << ",";
+            readuserfile << longintinput;
 
+        }
+        if (newline == 0) {
+            readuserfile << ",";
+        }
+        else {
+            readuserfile << "\n";
         }
         readuserfile.close();
     }
@@ -425,11 +427,9 @@ int setusertype() {
     cin >> choice; // set if parent or staff acount
 
     if (choice == 1) {
-        writetofile("parent", 0, 0, 0);
         return choice;
     }
     else if (choice == 2) {
-        writetofile("staff", 0, 0, 0);
         return choice;
     }
     else if (choice == 3) {
@@ -441,7 +441,7 @@ int setusertype() {
     }
 }
 
-void reg() { // register new user and add their details to file.
+void reg(int staffparent) { // register new user and add their details to file.
     bool match = false;
     string username;
     string password;
@@ -479,7 +479,7 @@ void reg() { // register new user and add their details to file.
             cout << "user name cannot be " << username << " please enter another username: ";
         }
     }
-    writetofile(username, 0, 0, 0);
+    
     cin.ignore();
     while (!match) {
         string confirm;
@@ -504,15 +504,12 @@ void reg() { // register new user and add their details to file.
             match = true;
         }
     }
-    writetofile(password, 0, 0, 0);
     string firstname;
     cout << "Enter your first name: ";
     cin >> firstname;
-    writetofile(firstname, 0, 0, 0);
     string lastname;
     cout << "Enter your last name: ";
     cin >> lastname;
-    writetofile(lastname, 0, 0, 0);
     cout << "Enter your gender (male, female, other): ";
     while (!validgen) {
         cin >> gen;
@@ -522,7 +519,7 @@ void reg() { // register new user and add their details to file.
             cout << "Invalid entry, please enter male, female or other: ";
         }
     }
-    writetofile(gen, 0, 0, 0);
+    
     cout << "Enter your date of birth, first enter day of month you were born (dd): ";
     while (!validday) {
         cin >> bday;
@@ -548,11 +545,9 @@ void reg() { // register new user and add their details to file.
         }
     }
     int dob = bday * 1000000 + bmonth * 10000 + byear;
-    writetofile("pass", dob, 0, 0);
     cout << "enter a contact number: ";
     string contactnum;
     cin >> contactnum;
-    writetofile(contactnum, 0, 0, 0);
     cout << "please enter your email address: ";
     while (!validemail) {
         cin >> email;
@@ -561,7 +556,6 @@ void reg() { // register new user and add their details to file.
             cout << "Invalid entry, please enter a valid email address: ";
         }
     }
-    writetofile(email, 0, 0, 0);
     cout << "please enter your credit card details.\nFirst, please enter the 16 digit card number: ";
     while (!validcardnum) {
         cin >> cardnum;
@@ -570,7 +564,6 @@ void reg() { // register new user and add their details to file.
             cout << "Invalid entry, please enter a valid 16 digit card number: ";
         }
     }
-    writetofile(to_string(cardnum), 0, 0, 0);
     cout << "Please enter the cards expiry date (mmyy): ";
     while (!validcardexp) {
         cin >> cardexp;
@@ -579,7 +572,6 @@ void reg() { // register new user and add their details to file.
             cout << "Invalid entry, please enter a valid expiry date (mmyy): ";
         }
     }
-    writetofile("pass", cardexp, 0, 0);
     cout << "Please enter the 3 digit CVV number on the back of your card: ";
     while (!validcardcvv) {
         cin >> cardcvv;
@@ -588,6 +580,22 @@ void reg() { // register new user and add their details to file.
             cout << "Invalid entry, please enter the 3-digit CVV number: ";
         }
     }
+    if (staffparent == 1) {
+        writetofile("parent", 0, 0, 0);
+    }
+    else if (staffparent == 2) {
+        writetofile("staff", 0, 0, 0);
+    }
+    writetofile(username, 0, 0, 0);
+    writetofile(password, 0, 0, 0);
+    writetofile(firstname, 0, 0, 0);
+    writetofile(lastname, 0, 0, 0);
+    writetofile(gen, 0, 0, 0);
+    writetofile("pass", dob, 0, 0);
+    writetofile(contactnum, 0, 0, 0);
+    writetofile(email, 0, 0, 0);
+    writetofile(to_string(cardnum), 0, 0, 0);
+    writetofile("pass", cardexp, 0, 0);
     writetofile("pass", cardcvv, 0, 1);
 }
 
@@ -711,7 +719,7 @@ void setnewpasswoord(string checkusername, string newpassword) {
 
 //using namespace std;
 void restaurant() {
-    int option, order, payment, complaint, bookingdiscounttype;
+    int option, order, payment, complaint, bookingdiscounttype = 0;
     char choice, confirmorder, continuepaying;
     bool keepgoing = true, correctcvv = false;
     string cvv;
@@ -899,19 +907,52 @@ void restaurant() {
             cout << "please choose ticket you would like to purchase:  ";
             cin >> bookingdiscounttype;
             cout << endl;
+            restaurant();
             break;
         case 2:
-            cout << "ticket details";
-            cout << endl;
-            cout << "ticket name: " << endl;
-            cout << "date: " << endl;
-            cout << "quantity: " << endl;
-            cout << "price: " << endl;
-            cout << "total: " << endl;
-            cout << endl;
-            cout << "press any key to go back: ";
-            cin >> payment;
-            cout << endl;
+            if (bookingdiscounttype == 1) {
+                cout << "ticket details";
+                cout << endl;
+                cout << "ticket name: " << endl;
+                cout << "date: " << endl;
+                cout << "quantity: " << endl;
+                cout << "price: " << endl;
+                cout << "total: " << endl;
+                cout << endl;
+                cout << "press any key to go back: ";
+                cin.get();
+                cout << endl;
+            }
+            else if (bookingdiscounttype == 2) {
+                cout << "ticket details";
+                cout << endl;
+                cout << "ticket name: " << endl;
+                cout << "date: " << endl;
+                cout << "quantity: " << endl;
+                cout << "price: " << endl;
+                cout << "total: " << endl;
+                cout << endl;
+                cout << "press any key to go back: ";
+                cin.get();
+                cout << endl;
+            }
+            else if (bookingdiscounttype == 3) {
+                cout << "ticket details";
+                cout << endl;
+                cout << "ticket name: " << endl;
+                cout << "date: " << endl;
+                cout << "quantity: " << endl;
+                cout << "price: " << endl;
+                cout << "total: " << endl;
+                cout << endl;
+                cout << "press any key to go back: ";
+                cin.get();
+                cout << endl;
+            }
+            else {
+                cout << "No ticket has been chosen." << endl;
+                restaurant();
+            }
             break;
         case 3:
             int menuid;
