@@ -9,7 +9,7 @@
 #include <map>
 using namespace std;
 
-
+//morgan start
 //Structs
 //______________________________________________________________________________________________________________
 struct carddetails { // credit card struct
@@ -40,7 +40,9 @@ struct user { // user struct
 //global user
 //______________________________________________________________________________________________________________
 user userloggedin;
+//morgan finish
 
+// both
 //Functions templates
 //______________________________________________________________________________________________________________
 //main menu Functions templates
@@ -77,37 +79,37 @@ void removeitem(string username, int ordertoremove);
 bool userupdate(string username);
 void checkout(user loggedinuser, string usern);
 void removeallorders(string username);
+//both finish
 
-
+//Nick code start
 //main()
 //______________________________________________________________________________________________________________
 int main() {
     int userchoice;
-    writetofile("pass", 0, 0, 1);
-    mainmenu();
+    mainmenu(); // display starting menu
     cin >> userchoice;
 
     switch (userchoice) {
 
     case 1:
-        weeklymenu();
+        weeklymenu(); // display weekly menu
         main();
         break;
 
 
     case 2:
-        bookingdiscount();
+        bookingdiscount(); // display bulk discount options
         main();
         break;
 
 
     case 3:
-        contactdetails();
+        contactdetails(); // display contact details
         main();
         break;
 
     case 4:
-        loginregmenu();
+        loginregmenu(); // go to login/register menu
         break;
     }
     return 0;
@@ -118,7 +120,7 @@ int main() {
 
 //main menu functions
 //______________________________________________________________________________________________________________
-void mainmenu() {
+void mainmenu() { // starting menu
 
 
     cout << "\t\t\t\t-------------------Lunch Ordering System-------------------" << endl;
@@ -132,11 +134,12 @@ void mainmenu() {
     cout << "\t\t\t\t| 4. Login or Register                                         |" << endl;
     cout << "\t\t\t\t| 5. Exit Program                                              |" << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-    cout << "\t\t Please input your choice: ";
+    cout << endl;
+    cout << "\t\t\t\t Please input your choice: ";
 
 }
 
-void weeklymenu() {
+void weeklymenu() { // weekly menu
     // Weekly Menu
     cout << "\n\n\t\t\t\t\t\t-----Weekly Menu-----" << endl;
     cout << endl;
@@ -173,7 +176,7 @@ void bookingdiscount() {
     cout << endl;
 }
 
-void contactdetails() {
+void contactdetails() { // displays contact and location details
     // Contact Details
     cout << "\n\n\t\t\t\t\t-----Contact Details and Locations-----" << endl;
     cout << endl;
@@ -184,8 +187,9 @@ void contactdetails() {
     cout << "Street: 141 Hudson Avenue\t\t\tStreet: 101 Jenkin Street\nCity: Haywards\t\t\t\t\tCity: Clifton\nState/province/area: Lower Hutt\t\t\tState/province/area: Invercargill\nPhone number (020) 2147-717\t\t\tPhone number (027) 7566-067\nZip code 5018\t\t\t\t\tZip code 9812" << endl;
     cout << endl;
 }
+//nicki finish
 
-
+//Morgan start
 //Login/register functions
 //______________________________________________________________________________________________________________
 //Login/register menu
@@ -202,7 +206,8 @@ void loginregmenu() {
     cout << "\t\t\t\t| 4. Back              |\n";
     cout << "\t\t\t\t|______________________|\n\n";
     cout << "\t\t\t\tPlease select the corresponding number: ";
-    cin >> userselect;
+    cin >> userselect; // select option
+    cout << "\n";
     cin.clear();
     if (userselect == 1) {
         login(userloggedin); // go to login menu
@@ -225,7 +230,7 @@ void loginregmenu() {
         main();
     }
     else {
-        cout << "invalid input.\n";
+        cout << "\t\t\t\tinvalid input.\n";
         loginregmenu();
     } // if user puts invalid entry
 }
@@ -249,7 +254,7 @@ void userlogin(user& userlog, string searchusername, string password) {
         getline(readfile, email, ',');
         getline(readfile, cardnum, ',');
         getline(readfile, cardexp, ',');
-        getline(readfile, cardcvv, '\n');// loop through entries
+        getline(readfile, cardcvv, '\n');// loop through user file
 
         if (username == searchusername && passwd == password) {
             userfound = true; // can stop when user found
@@ -264,19 +269,19 @@ void userlogin(user& userlog, string searchusername, string password) {
             userlog.email = email;
             userlog.usercard.cardnumber = cardnum;
             userlog.usercard.expiry = cardexp;
-            userlog.usercard.cvv = cardcvv;
+            userlog.usercard.cvv = cardcvv; // adds a user struct with logged in user details
         }
     }
     if (!userfound) {
-        cout << "Sorry that username does not exist.\n"; // if user not found
+        cout << "\t\t\t\tSorry that username does not exist.\n"; // if user not found
         readfile.close();
         login(userlog);
         return;
     }
     else if (passwd != password) {
         string newpassword;
-        cout << "Incorrect password\n"; // if the password is not the same as the users password
-        cout << "please enter your password or enter b to go back: ";
+        cout << "\t\t\t\tIncorrect password\n"; // if the password is not the same as the users password
+        cout << "\t\t\t\tplease enter your password or enter b to go back: ";
         cin >> newpassword;
         if (newpassword != "b") {
             readfile.close();
@@ -295,15 +300,15 @@ void userlogin(user& userlog, string searchusername, string password) {
 void login(user& loginuser) {
     string username;
     string password;
-    bool loginattempt = false; // false if attempt fails
-    cout << "login or enter b to go back\n"; // gives user option to go back
-    cout << "Enter your username: ";
+
+    cout << "\t\t\t\tlogin or enter b to go back\n"; // gives user option to go back
+    cout << "\t\t\t\tEnter your username: ";
     cin >> username;
     if (username == "b") { // don't run rest of code if user enters b
         main();
         return;
     }
-    cout << "Enter your password: ";
+    cout << "\t\t\t\tEnter your password: ";
     cin >> password;
     if (password == "b") {// don't run rest of code if user enters b
         main();
@@ -312,7 +317,6 @@ void login(user& loginuser) {
     else {
         userlogin(loginuser, username, password); // check that login details are correct.
     }
-    //main(); // change to other menu when code combined
 }
 
 //register option functions
@@ -334,15 +338,15 @@ void writetofile(string stringinput, int intinput, long long int longintinput, i
 
         }
         if (newline == 0) {
-            readuserfile << ",";
+            readuserfile << ","; //next input will go into next cell
         }
         else {
-            readuserfile << "\n";
+            readuserfile << "\n"; // next input will go on next line
         }
         readuserfile.close();
     }
     else {
-        cout << "error: could not write to file.";
+        cout << "error: could not write to file."; // if program could not open file
     }
 }
 
@@ -416,14 +420,15 @@ bool validecardexp(int checkint) { // check if expiry date input on card is vali
 int setusertype() {
     int choice;
 
-    cout << "are you a parent or staff?\n\n";
-    cout << " ______________________\n";
-    cout << "| Register             |\n";
-    cout << "|______________________|\n";
-    cout << "| 1. parent            |\n";
-    cout << "| 2. staff             |\n";
-    cout << "| 3. Back              |\n";
-    cout << "|______________________|\n";
+    cout << "\t\t\t\tare you a parent or staff?\n\n";
+    cout << "\t\t\t\t ______________________\n";
+    cout << "\t\t\t\t| Register             |\n";
+    cout << "\t\t\t\t|______________________|\n";
+    cout << "\t\t\t\t| 1. parent            |\n";
+    cout << "\t\t\t\t| 2. staff             |\n";
+    cout << "\t\t\t\t| 3. Back              |\n";
+    cout << "\t\t\t\t|______________________|\n";
+    cout << "\t\t\t\t";
     cin >> choice; // set if parent or staff acount
 
     if (choice == 1) {
@@ -436,7 +441,7 @@ int setusertype() {
         return choice;
     }
     else {
-        "invalid choice, please select the corresponding number: ";
+        "\t\t\t\tinvalid choice, please select the corresponding number: ";
         setusertype();
     }
 }
@@ -463,7 +468,7 @@ void reg(int staffparent) { // register new user and add their details to file.
     bool validcardexp = false;
     bool validcardcvv = false;
 
-    cout << "Choose a username: ";
+    cout << "\t\t\t\tChoose a username: ";
     while (!validusername) {
         cin >> username;
         bool userexist = searchuser(username);
@@ -472,11 +477,11 @@ void reg(int staffparent) { // register new user and add their details to file.
                 validusername = true;
             }
             else {
-                cout << username << " already exists. Please enter another username: ";
+                cout << "\t\t\t\t" << username << " already exists. Please enter another username: ";
             }
         }
         else {
-            cout << "user name cannot be " << username << " please enter another username: ";
+            cout << "\t\t\t\tUsername cannot be " << username << " please enter another username: ";
         }
     }
     
@@ -484,100 +489,100 @@ void reg(int staffparent) { // register new user and add their details to file.
     while (!match) {
         string confirm;
         bool validpassword = false;
-        cout << "Enter a password: ";
+        cout << "\t\t\t\tEnter a password: ";
         while (!validpassword) {
             cin >> password;
             if (password != "b") {
                 validpassword = true;
             }
             else {
-                cout << "password cannot be " << password << " please enter another password: ";
+                cout << "\t\t\t\tpassword cannot be " << password << " please enter another password: ";
             }
         }
-        cout << "confirm your password: ";
+        cout << "\t\t\t\tconfirm your password: ";
         cin >> confirm;
         if (password != confirm) {
-            cout << "Sorry, that is not a match.\n";
+            cout << "\t\t\t\tSorry, that is not a match.\n";
         }
         else {
-            cout << "Your password has been set.\n\n";
+            cout << "\t\t\t\tYour password has been set.\n\n";
             match = true;
         }
     }
     string firstname;
-    cout << "Enter your first name: ";
+    cout << "\t\t\t\tEnter your first name: ";
     cin >> firstname;
     string lastname;
-    cout << "Enter your last name: ";
+    cout << "\t\t\t\tEnter your last name: ";
     cin >> lastname;
-    cout << "Enter your gender (male, female, other): ";
+    cout << "\t\t\t\tEnter your gender (male, female, other): ";
     while (!validgen) {
         cin >> gen;
         cin.ignore();
         validgen = validestring(1, gen);
         if (!validgen) {
-            cout << "Invalid entry, please enter male, female or other: ";
+            cout << "\t\t\t\tInvalid entry, please enter male, female or other: ";
         }
     }
     
-    cout << "Enter your date of birth, first enter day of month you were born (dd): ";
+    cout << "\t\t\t\tEnter your date of birth, first enter day of month you were born (dd): ";
     while (!validday) {
         cin >> bday;
         validday = valideint(bday, 0, 32);
         if (!validday) {
-            cout << "Invalid entry, please enter day of month you were born (dd): ";
+            cout << "\t\t\t\tInvalid entry, please enter day of month you were born (dd): ";
         }
     }
-    cout << "Enter the month you were born (mm): ";
+    cout << "\t\t\t\tEnter the month you were born (mm): ";
     while (!validmonth) {
         cin >> bmonth;
         validmonth = valideint(bmonth, 0, 13);
         if (!validmonth) {
-            cout << "Invalid entry, please enter the month you were born (mm): ";
+            cout << "\t\t\t\tInvalid entry, please enter the month you were born (mm): ";
         }
     }
-    cout << "Enter the year you were born (yyyy): ";
+    cout << "\t\t\t\tEnter the year you were born (yyyy): ";
     while (!validyear) {
         cin >> byear;
         validyear = valideint(byear, 1900, 2023);
         if (!validyear) {
-            cout << "Invalid entry, please enter the year you were born (yyyy): ";
+            cout << "\t\t\t\tInvalid entry, please enter the year you were born (yyyy): ";
         }
     }
     int dob = bday * 1000000 + bmonth * 10000 + byear;
-    cout << "enter a contact number: ";
+    cout << "\t\t\t\tenter a contact number: ";
     string contactnum;
     cin >> contactnum;
-    cout << "please enter your email address: ";
+    cout << "\t\t\t\tplease enter your email address: ";
     while (!validemail) {
         cin >> email;
         validemail = validestring(2, email);
         if (!validemail) {
-            cout << "Invalid entry, please enter a valid email address: ";
+            cout << "\t\t\t\tInvalid entry, please enter a valid email address: ";
         }
     }
-    cout << "please enter your credit card details.\nFirst, please enter the 16 digit card number: ";
+    cout << "\t\t\t\tplease enter your credit card details.\n\t\t\t\tFirst, please enter the 16 digit card number: ";
     while (!validcardnum) {
         cin >> cardnum;
         validcardnum = validecard(cardnum, 999999999999999, 10000000000000000);
         if (!validcardnum) {
-            cout << "Invalid entry, please enter a valid 16 digit card number: ";
+            cout << "\t\t\t\tInvalid entry, please enter a valid 16 digit card number: ";
         }
     }
-    cout << "Please enter the cards expiry date (mmyy): ";
+    cout << "\t\t\t\tPlease enter the cards expiry date (mmyy): ";
     while (!validcardexp) {
         cin >> cardexp;
         validcardexp = validecardexp(cardexp);
         if (!validcardexp) {
-            cout << "Invalid entry, please enter a valid expiry date (mmyy): ";
+            cout << "\t\t\t\tInvalid entry, please enter a valid expiry date (mmyy): ";
         }
     }
-    cout << "Please enter the 3 digit CVV number on the back of your card: ";
+    cout << "\t\t\t\tPlease enter the 3 digit CVV number on the back of your card: ";
     while (!validcardcvv) {
         cin >> cardcvv;
         validcardcvv = valideint(cardcvv, 99, 1000);
         if (!validcardcvv) {
-            cout << "Invalid entry, please enter the 3-digit CVV number: ";
+            cout << "\t\t\t\tInvalid entry, please enter the 3-digit CVV number: ";
         }
     }
     if (staffparent == 1) {
@@ -596,7 +601,7 @@ void reg(int staffparent) { // register new user and add their details to file.
     writetofile(email, 0, 0, 0);
     writetofile(to_string(cardnum), 0, 0, 0);
     writetofile("pass", cardexp, 0, 0);
-    writetofile("pass", cardcvv, 0, 1);
+    writetofile("pass", cardcvv, 0, 1); // when user gets to en of registration then enter all values into user file
 }
 
 //forgot password option functions
@@ -623,28 +628,28 @@ void passwordreset() {
     bool match = false;
     string username;
     string password;
-    cout << "enter your username or type b to go back: ";
+    cout << "\t\t\t\tenter your username or type b to go back: ";
     while (!userexists) { // check username exists
         cin >> username;
-        if (username == "b") {
+        if (username == "b") { // go back if user enters b
             return;
         }
         userexists = searchuser(username);
         if (!userexists) {
-            cout << "That username does not exist, please enter your username or enter b to go back: ";
+            cout << "\t\t\t\tThat username does not exist, please enter your username or enter b to go back: ";
         }
     }
     while (!match) { // user to enter new password and retype it to confirm.
         string confirm;
-        cout << "Enter new password: ";
+        cout << "\t\t\t\tEnter new password: ";
         cin >> password;
-        cout << "confirm your password: ";
+        cout << "\t\t\t\tconfirm your password: ";
         cin >> confirm;
         if (password != confirm) {
-            cout << "Sorry, that is not a match.\n";
+            cout << "\t\t\t\tSorry, that is not a match.\n";
         }
         else {
-            cout << "Your password has been set.\n";
+            cout << "\t\t\t\tYour password has been set.\n";
             match = true;
         }
     }
@@ -710,10 +715,9 @@ void setnewpasswoord(string checkusername, string newpassword) {
     }
     writefile.close();
 }
+// Morgan finish
 
-//update user
-//bool checkpassword(string checkpassword);
-
+//Nicki start
 //restaurant menu system
 //__________________________________________________________________________
 
@@ -722,21 +726,21 @@ void restaurant() {
     int option, order, payment, complaint, bookingdiscounttype = 0;
     char choice, confirmorder, continuepaying;
     bool keepgoing = true, correctcvv = false;
-    string cvv;
+    string cvv, usercomplaint;
 
     cout << endl;
-    cout << "\t\t\t\t-------------------food ordering system-------------------" << endl;
+    cout << "\t\t\t\t-------------------food ordering system-------------------" << endl;// once logged in display this menu for ordering etc
     cout << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
     cout << "\t\t\t\t|                    main menu                                 |" << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
     cout << "\t\t\t\t| 1. order food/view menu                                      |" << endl;
-    cout << "\t\t\t\t| 2. make complaint discounts                                  |" << endl;
+    cout << "\t\t\t\t| 2. make complaint                                            |" << endl;
     cout << "\t\t\t\t| 3. bulk payment                                              |" << endl;
     cout << "\t\t\t\t| 4. update details                                            |" << endl;
     cout << "\t\t\t\t| 5. logout                                                    |" << endl;
     cout << "\t\t\t\t|--------------------------------------------------------------|" << endl;
-    cout << "\t\t please input your choice: ";
+    cout << "\t\t\t\t please input your choice: "; 
     cin >> option;
     cout << endl;
 
@@ -747,12 +751,12 @@ void restaurant() {
         // weekly menu
         int orderchoice = 0;
         cout << endl;
-        cout << "1. add order" << endl;
-        cout << "2. remove order" << endl;
-        cout << "3. print meal details" << endl;
-        cout << "4. checkout" << endl;
-        cout << "5. exit" << endl;
-        cout << "choose an option: ";
+        cout << "\t\t\t\t1. add order" << endl;
+        cout << "\t\t\t\t2. remove order" << endl;
+        cout << "\t\t\t\t3. print meal details" << endl;
+        cout << "\t\t\t\t4. checkout" << endl;
+        cout << "\t\t\t\t5. exit" << endl;
+        cout << "\t\t\t\tchoose an option: ";
         cin >> order;
         cout << endl;
 
@@ -761,18 +765,18 @@ void restaurant() {
         case 1:
 
             while (orderchoice != 1 && orderchoice != 2 && orderchoice != 3 && orderchoice != 4 && orderchoice != 5 && orderchoice != 6) {
-                cout << "available menu: ";
+                cout << "\t\t\t\tavailable menu: ";
                 cout << endl;
-                cout << "1. spinach salad" << endl;
-                cout << "2. pulled pork" << endl;
-                cout << "3. spaghetti bolognese" << endl;
-                cout << "4. chicken fried rice" << endl;
-                cout << "5. veggie burger" << endl;
-                cout << "6. grilled cheese" << endl;
+                cout << "\t\t\t\t1. spinach salad" << endl;
+                cout << "\t\t\t\t2. pulled pork" << endl;
+                cout << "\t\t\t\t3. spaghetti bolognese" << endl;
+                cout << "\t\t\t\t4. chicken fried rice" << endl;
+                cout << "\t\t\t\t5. veggie burger" << endl;
+                cout << "\t\t\t\t6. grilled cheese" << endl;
                 cout << endl;
-                cout << "please select your preffered menu: ";
+                cout << "\t\t\t\tplease select your preffered menu: ";
                 cin >> orderchoice;
-                addorder(userloggedin, orderchoice);
+                addorder(userloggedin, orderchoice); // add users order to order file
                 cout << endl;
                 restaurant();
             }
@@ -780,96 +784,93 @@ void restaurant() {
         case 2:
             int ordernumtoremove;
             displayorders(userloggedin.username);
-            cout << "Select the number order you want to remove: ";
+            cout << "\t\t\t\tSelect the number order you want to remove: ";
             cin >> ordernumtoremove;
-            removeitem(userloggedin.username, ordernumtoremove);
+            removeitem(userloggedin.username, ordernumtoremove); // remove selected user order
             restaurant();
             break;
         case 3:
-            displayorders(userloggedin.username);
+            displayorders(userloggedin.username); // shows user their current orders/cart
             restaurant();
             break;
         case 4:
             checkout(userloggedin, userloggedin.username);
-            cout << "would you like to purchase this order with your registered card?";
+            cout << "\t\t\twould you like to purchase this order with your registered card (enter y to confirm)? ";
             cin >> confirmorder;
             if (confirmorder == 'y') {
                 while (!correctcvv) {
-                    cout << "please enter your 3 digit cvv number: ";
+                    cout << "\t\t\t\tplease enter your 3 digit cvv number: ";
                     cin >> cvv;
-                    if (cvv == userloggedin.usercard.cvv) {
-                        cout << "Thank you, enjoy your meal.\n\n";
+                    if (cvv == userloggedin.usercard.cvv) { // user enters their cvv number to purchase their order
+                        cout << "\t\t\t\tThank you, enjoy your meal.\n\n";
                         removeallorders(userloggedin.username);
                         main();
                         correctcvv = true;
                         break;
                     }
                     else {
-                        cout << "That is not the correct cvv number for your card, try again? (y to continue)";
+                        cout << "\t\t\t\tThat is not the correct cvv number for your card, try again? (y to continue)"; // if they get cvv number wrong they can try again or go back
                         cin >> continuepaying;
                         if (continuepaying == 'y') {
 
                         }
                         else {
-                            cout << "What would you like to do next? \n";
+                            cout << "\t\t\t\tWhat would you like to do next? \n";
                             restaurant();
                             break;
                         }
                     }
                 }
-                cout << "Thank you, enjoy your meal.\n\n";
-                removeallorders(userloggedin.username);
-                restaurant();
             }
             else {
-                cout << "What would you like to do next? \n";
+                cout << "\t\t\t\tWhat would you like to do next? \n";
                 restaurant();
             }
             break;
         case 5:
-            restaurant();
+            restaurant(); // go back
             break;
         }
     }break;
     case 2:
     {
-        cout << "\n\n\t\t\t\t\t\t\t-----------------make complaint------------------" << endl;
+        cout << "\n\n\t\t\t\t-----------------make complaint------------------" << endl;
         cout << endl;
-        cout << "make complaint on :" << endl;
+        cout << "\t\t\t\tmake complaint on :" << endl;
         cout << endl;
-        cout << "1. food related" << endl;
-        cout << "2. service related" << endl;
-        cout << "3. others" << endl;
-        cout << "choose an option: ";
+        cout << "\t\t\t\t1. food related" << endl; //user can make complaint
+        cout << "\t\t\t\t2. service related" << endl;
+        cout << "\t\t\t\t3. others" << endl;
+        cout << "\t\t\t\tchoose an option: ";
         cin >> complaint;
         cout << endl;
         switch (complaint)
         {
         case 1:
-            cout << "please elaborate on your complaint: ";
-            cin >> complaint;
+            cout << "\t\t\t\tplease elaborate on your complaint: ";
+            cin >> usercomplaint;
             cout << endl;
-            cout << "Thank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << ", enjoy the rest of your day" << endl;
-            restaurant();
+            cout << "\t\t\t\tThank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << endl;
+            cout << "\t\t\t\tenjoy the rest of your day" << endl;
             break;
 
         case 2:
-            cout << "please elaborate on your complaint: ";
-            cin >> complaint;
+            cout << "\t\t\t\tplease elaborate on your complaint: ";
+            cin >> usercomplaint;
             cout << endl;
-            cout << "Thank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << ", enjoy the rest of your day" << endl;
-            restaurant();
+            cout << "\t\t\t\tThank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << endl;
+            cout << "\t\t\t\tenjoy the rest of your day" << endl;
             break;
         case 3:
-            cout << "please elaborate on your complaint: ";
-            cin >> complaint;
+            cout << "\t\t\t\tplease elaborate on your complaint: ";
+            cin >> usercomplaint;
             cout << endl;
-            cout << "Thank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << ", enjoy the rest of your day" << endl;
-            restaurant();
+            cout << "\t\t\t\tThank you for contacting us, we may get in touch to discuss further on " << userloggedin.contactnumber << endl;
+            cout << "\t\t\t\tenjoy the rest of your day" << endl;
             break;
         }
-
-    }break;
+    }
+    break;
     case 3:
     {
         // bulk payment
@@ -887,133 +888,77 @@ void restaurant() {
         cout << endl;
         cout << endl;
         cout << endl;
-        cout << "1. order ticket" << endl;
-        cout << "2. print ticket details" << endl;
-        cout << "3. checkout" << endl;
-        cout << "4. exit" << endl;
-        cout << "choose an option: ";
-        cin >> payment;
+        cout << "\t\t\t\torder ticket";
+        cout << endl;
+        cout << "\t\t\t\t1. gold" << endl;
+        cout << "\t\t\t\t2. silver" << endl;
+        cout << "\t\t\t\t3. bronze" << endl;
+        cout << "\t\t\t\t4. exit" << endl;
+        cout << endl;
+        cout << "\t\t\t\tplease choose ticket you would like to purchase:  "; // user can select their choice of bulk order deals
+        cin >> bookingdiscounttype;
         cout << endl;
 
-        switch (payment)
+        switch (bookingdiscounttype)
         {
         case 1:
-            cout << "order ticket";
+            cout << "\t\t\t\tYou selected the golden ticket" << endl;
+            cout << "\t\t\t\tcost: $148.75" << endl;
+            cout << "\t\t\t\tDiscount: 15% for 30 days" << endl;
             cout << endl;
-            cout << "1. gold" << endl;
-            cout << "2. silver" << endl;
-            cout << "3. bronze" << endl;
-            cout << endl;
-            cout << "please choose ticket you would like to purchase:  ";
-            cin >> bookingdiscounttype;
-            cout << endl;
-            restaurant();
             break;
         case 2:
-            if (bookingdiscounttype == 1) {
-                cout << "ticket details";
-                cout << endl;
-                cout << "ticket name: " << endl;
-                cout << "date: " << endl;
-                cout << "quantity: " << endl;
-                cout << "price: " << endl;
-                cout << "total: " << endl;
-                cout << endl;
-                cout << "press any key to go back: ";
-                cin.get();
-                cout << endl;
-            }
-            else if (bookingdiscounttype == 2) {
-                cout << "ticket details";
-                cout << endl;
-                cout << "ticket name: " << endl;
-                cout << "date: " << endl;
-                cout << "quantity: " << endl;
-                cout << "price: " << endl;
-                cout << "total: " << endl;
-                cout << endl;
-                cout << "press any key to go back: ";
-                cin.get();
-                cout << endl;
-            }
-            else if (bookingdiscounttype == 3) {
-                cout << "ticket details";
-                cout << endl;
-                cout << "ticket name: " << endl;
-                cout << "date: " << endl;
-                cout << "quantity: " << endl;
-                cout << "price: " << endl;
-                cout << "total: " << endl;
-                cout << endl;
-                cout << "press any key to go back: ";
-                cin.get();
-                cout << endl;
-            }
-            else {
-                cout << "No ticket has been chosen." << endl;
-                restaurant();
-            }
+            cout << "\t\t\t\tYou selected the silver ticket" << endl;
+            cout << "\t\t\t\tcost: $112.5" << endl;
+            cout << "\t\t\t\tDiscount: 10% for 15 days" << endl;
+            cout << endl;
             break;
         case 3:
-            int menuid;
-            map<int, map<string, int>> foods;
-            foods[1]["spinach salad"] = 9.95;
-            foods[2]["pulled pork"] = 7.95;
-            foods[3]["sphaghetti bolognese"] = 6.50;
-            foods[4]["chicken fried rice"] = 8.00;
-            foods[5]["veggie burger"] = 7.50;
-            foods[6]["grilled cheese"] = 6.00;
-
-            vector<int> ordereditems;
-            int total = 0;
-            cout << "ticket details";
+            cout << "\t\t\t\tYou selected the golden ticket" << endl;
+            cout << "\t\t\t\tcost: $71.25" << endl;
+            cout << "\t\t\t\tDiscount: 5% for 7 days" << endl;
             cout << endl;
-            cout << "ticket name ......... ........ " << endl;
-            cout << "quantity ........ " << endl;
-            cout << "price ........... " << endl;
-            cout << "total ........ " << endl;
-            cout << endl;
-            cout << "press 1 to proceed: ";
-            cin >> payment;
-            cout << endl;
-
-            int proceed;
-            cout << "1. pay now " << endl;
-            cout << "2. pay later " << endl;
-            cout << "3. exit" << endl;
-            cout << "choose option: ";
-            cin >> proceed;
-            cout << endl;
-
-            cout << "*** checkout #1 ***\n";
-            cout << "order items: ";
-            for (int& i : ordereditems) {
-                auto f = foods.find(i);
-                map<string, int> y = f->second;
-                cout << "[" << y.begin()->first << "]";
-                total += y.begin()->second;
-            }
-            cout << "\ntotal price: $" << total << "\n\n";
-
-            int paymethod;
-            cout
-                << "choose your payment method:\n"
-                << "1. visacard\n"
-                << "2. mastercard\n"
-                << "3. online banking\n\n"
-                << "enter id: ";
-            cin >> paymethod;
-            cout << "\n\n[payment accepted] happy meal!";
-
-            menuid = 0; /* exit program */
             break;
+        case 4:
+            restaurant();
+            return;
+        }
+        cout << "\t\t\twould you like to purchase this ticket with your registered card (enter y to confirm)? "; // user to confirm with cvv number to checkout
+        cin >> confirmorder;
+        if (confirmorder == 'y') {
+            while (!correctcvv) {
+                cout << "\t\t\t\tplease enter your 3 digit cvv number: ";
+                cin >> cvv;
+                if (cvv == userloggedin.usercard.cvv) {
+                    cout << "\t\t\t\tThank you, enjoy your meal.\n\n";
+                    removeallorders(userloggedin.username);
+                    main();
+                    correctcvv = true;
+                    break;
+                }
+                else {
+                    cout << "\t\t\t\tThat is not the correct cvv number for your card, try again? (y to continue)";
+                    cin >> continuepaying;
+                    if (continuepaying == 'y') {
+
+                    }
+                    else {
+                        cout << "\t\t\t\tWhat would you like to do next? \n";
+                        restaurant();
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            cout << "\t\t\t\tWhat would you like to do next? \n";
+            restaurant();
         }
     }
     break;
     case 4:
-        
         while (keepgoing) {
-            keepgoing = userupdate(userloggedin.username);
+            keepgoing = userupdate(userloggedin.username); // update detail user selects, they can update more details if they choose
         }
         restaurant();
         break;
@@ -1022,11 +967,13 @@ void restaurant() {
         break;
     }
 }
+//nicki finish
 
+//Morgan start
 //order food functions
 //______________________________________________________________________________________________________________
 
-void addorder(user username, int menuchoice) {
+void addorder(user username, int menuchoice) { // function to add order to orders file
     fstream orderfile;
     orderfile.open("orders.csv", fstream::app);
 
@@ -1061,7 +1008,7 @@ void addorder(user username, int menuchoice) {
         orderfile << "$6.00\n";
     }
     else {
-        cout << "Sorry, " << menuchoice << " is not an order number on our menu.";
+        cout << "\t\t\t\tSorry, " << menuchoice << " is not an order number on our menu.";
     }
     orderfile.close();
 }
@@ -1076,32 +1023,32 @@ void displayorders(string username) { // function to display users orders
         getline(readorders, ordernumber, ',');
         getline(readorders, price, '\n');
         if (user == username) { // to display only this users details
-            cout << "order #" << count << "\n";
-            cout << "user: " << user << "\n";
+            cout << "\t\t\t\torder #" << count << "\n";
+            cout << "\t\t\t\tuser: " << user << "\n";
             switch (stoi(ordernumber))
             {
             case 1:
-                cout << "Meal: Spinach salad\n";
+                cout << "\t\t\t\tMeal: Spinach salad\n";
                 break;
             case 2:
-                cout << "Meal: Pulled pork\n";
+                cout << "\t\t\t\tMeal: Pulled pork\n";
                 break;
             case 3:
-                cout << "Meal: Spaghetti bolognese\n";
+                cout << "\t\t\t\tMeal: Spaghetti bolognese\n";
                 break;
             case 4:
-                cout << "Meal: Chicken fried rice\n";
+                cout << "\t\t\t\tMeal: Chicken fried rice\n";
                 break;
             case 5:
-                cout << "Meal: Veggie burger\n";
+                cout << "\t\t\t\tMeal: Veggie burger\n";
                 break;
             case 6:
-                cout << "Meal: Grilled cheese\n";
+                cout << "\t\t\t\tMeal: Grilled cheese\n";
                 break;
             default:
                 break;
             }
-            cout << "Price: " << price << "\n\n";
+            cout << "\t\t\t\tPrice: " << price << "\n\n";
             count++;
         }
     }
@@ -1160,17 +1107,18 @@ bool userupdate(string username) { //when user selects to update details goes to
     vector<string> storevalues;// vector to store values
     string type, usern, passwd, fname, lname, gender, dob, contactnum, email, cardnum, cardexp, cardcvv;
 
-    cout << " __________________________________\n";
-    cout << "| What would you like to update?   |\n";
-    cout << "|__________________________________|\n";
-    cout << "| 1. Name                          |\n";
-    cout << "| 2. Gender                        |\n";
-    cout << "| 3. Date of birth                 |\n";
-    cout << "| 4. Contact number                |\n";
-    cout << "| 5. Email address                 |\n";
-    cout << "| 6. Card details                  |\n";
-    cout << "| 7. Back                          |\n";
-    cout << "|__________________________________|\n\n";
+    cout << "\t\t\t\t __________________________________\n";
+    cout << "\t\t\t\t| What would you like to update?   |\n";
+    cout << "\t\t\t\t|__________________________________|\n";
+    cout << "\t\t\t\t| 1. Name                          |\n";
+    cout << "\t\t\t\t| 2. Gender                        |\n";
+    cout << "\t\t\t\t| 3. Date of birth                 |\n";
+    cout << "\t\t\t\t| 4. Contact number                |\n";
+    cout << "\t\t\t\t| 5. Email address                 |\n";
+    cout << "\t\t\t\t| 6. Card details                  |\n";
+    cout << "\t\t\t\t| 7. Back                          |\n";
+    cout << "\t\t\t\t|__________________________________|\n\n";
+    cout << "\t\t\t\t";
 
     cin >> userchoice;
     if (userchoice == 7) {
@@ -1178,7 +1126,7 @@ bool userupdate(string username) { //when user selects to update details goes to
         return false; // if user selects 7 go back
     }
     if (userchoice != 1 && userchoice != 2 && userchoice != 3 && userchoice != 4 && userchoice != 5 && userchoice != 6) {
-        cout << "invalid input, please enter corresponding number in list\n\n";
+        cout << "\t\t\t\tinvalid input, please enter corresponding number in list\n\n";
         readfile.close();
         userupdate(username);
         return false; // if invalid input
@@ -1196,7 +1144,7 @@ bool userupdate(string username) { //when user selects to update details goes to
         getline(readfile, fname, ',');
         if (userchoice == 1 && username == usern) { // if user selects 1 change first name
             string newname;
-            cout << "enter the new first name: ";
+            cout << "\t\t\t\tenter the new first name: ";
             cin >> newname;
             storevalues.push_back(newname);
             storevalues.push_back(",");
@@ -1208,7 +1156,7 @@ bool userupdate(string username) { //when user selects to update details goes to
         getline(readfile, lname, ',');
         if (userchoice == 1 && username == usern) { //if user selects 1 change last name
             string newname;
-            cout << "enter your new last name: ";
+            cout << "\t\t\t\tenter your new last name: ";
             cin >> newname;
             storevalues.push_back(newname);
             storevalues.push_back(",");
@@ -1221,13 +1169,13 @@ bool userupdate(string username) { //when user selects to update details goes to
         if (userchoice == 2 && username == usern) { // if user selects 2 change gender
             string gen;
             bool validgen = false;
-            cout << "enter your gender: ";
+            cout << "\t\t\t\tenter your gender: ";
             while (!validgen) {
                 cin >> gen;
                 cin.ignore();
                 validgen = validestring(1, gen);
                 if (!validgen) {
-                    cout << "Invalid entry, please enter male, female or other: ";
+                    cout << "\t\t\t\tInvalid entry, please enter male, female or other: ";
                 }
             }
             storevalues.push_back(gen);
@@ -1245,28 +1193,28 @@ bool userupdate(string username) { //when user selects to update details goes to
             int bday;
             int bmonth;
             int byear;
-            cout << "Enter the day you were born (dd): ";
+            cout << "\t\t\t\tEnter the day you were born (dd): ";
             while (!validday) {
                 cin >> bday;
                 validday = valideint(bday, 0, 32);
                 if (!validday) {
-                    cout << "Invalid entry, please enter day of month you were born (dd): ";
+                    cout << "\t\t\t\tInvalid entry, please enter day of month you were born (dd): ";
                 }
             }
-            cout << "Enter the month you were born (mm): ";
+            cout << "\t\t\t\tEnter the month you were born (mm): ";
             while (!validmonth) {
                 cin >> bmonth;
                 validmonth = valideint(bmonth, 0, 13);
                 if (!validmonth) {
-                    cout << "Invalid entry, please enter the month you were born (mm): ";
+                    cout << "\t\t\t\tInvalid entry, please enter the month you were born (mm): ";
                 }
             }
-            cout << "Enter the year you were born (yyyy): ";
+            cout << "\t\t\t\tEnter the year you were born (yyyy): ";
             while (!validyear) {
                 cin >> byear;
                 validyear = valideint(byear, 1900, 2023);
                 if (!validyear) {
-                    cout << "Invalid entry, please enter the year you were born (yyyy): ";
+                    cout << "\t\t\t\tInvalid entry, please enter the year you were born (yyyy): ";
                 }
             }
             int dofb = bday * 1000000 + bmonth * 10000 + byear;
@@ -1280,7 +1228,7 @@ bool userupdate(string username) { //when user selects to update details goes to
         getline(readfile, contactnum, ',');
         if (userchoice == 4 && username == usern) { // if user selects 4 change phone number.
             string newnum;
-            cout << "Enter your new number: ";
+            cout << "\t\t\t\tEnter your new number: ";
             cin >> newnum;
             storevalues.push_back(newnum);
             storevalues.push_back(",");
@@ -1293,7 +1241,7 @@ bool userupdate(string username) { //when user selects to update details goes to
         if (userchoice == 5 && username == usern) { // if user selects 5 change email address
             bool validemail = false;
             string newemail;
-            cout << "please enter your new email address: ";
+            cout << "\t\t\t\tplease enter your new email address: ";
             while (!validemail) {
                 cin >> newemail;
                 validemail = validestring(2, newemail);
@@ -1312,12 +1260,12 @@ bool userupdate(string username) { //when user selects to update details goes to
         if (userchoice == 6 && username == usern) { // if user selects 6 change card details
             bool validcardnum = false;
             long long int newcardnum;
-            cout << "please enter your new credit card details.\nFirst, please enter the 16 digit card number: ";
+            cout << "\t\t\t\tplease enter your new credit card details.\n\t\t\t\tFirst, please enter the 16 digit card number: ";
             while (!validcardnum) {
                 cin >> newcardnum;
                 validcardnum = validecard(newcardnum, 999999999999999, 10000000000000000);
                 if (!validcardnum) {
-                    cout << "Invalid entry, please enter a valid 16 digit card number: ";
+                    cout << "\t\t\t\tInvalid entry, please enter a valid 16 digit card number: ";
                 }
             }
             storevalues.push_back(to_string(newcardnum));
@@ -1331,12 +1279,12 @@ bool userupdate(string username) { //when user selects to update details goes to
         if (userchoice == 6 && username == usern) {
             bool validcardexp = false;
             int newcardexp;
-            cout << "Please enter the new cards expiry date (mmyy): ";
+            cout << "\t\t\t\tPlease enter the new cards expiry date (mmyy): ";
             while (!validcardexp) {
                 cin >> newcardexp;
                 validcardexp = valideint(newcardexp, 522, 1333);
                 if (!validcardexp) {
-                    cout << "Invalid entry, please enter a valid expiry date (mmyy): ";
+                    cout << "\t\t\t\tInvalid entry, please enter a valid expiry date (mmyy): ";
                 }
             }
             storevalues.push_back(to_string(newcardexp));
@@ -1350,12 +1298,12 @@ bool userupdate(string username) { //when user selects to update details goes to
         if (userchoice == 6 && username == usern) {
             bool validcardcvv = false;
             int newcardcvv;
-            cout << "Please enter the new 3 digit CVV number on the back of your card: ";
+            cout << "\t\t\t\tPlease enter the new 3 digit CVV number on the back of your card: ";
             while (!validcardcvv) {
                 cin >> newcardcvv;
                 validcardcvv = valideint(newcardcvv, 99, 1000);
                 if (!validcardcvv) {
-                    cout << "Invalid entry, please enter the 3-digit CVV number: ";
+                    cout << "\t\t\t\tInvalid entry, please enter the 3-digit CVV number: ";
                 }
             }
             storevalues.push_back(to_string(newcardcvv));
@@ -1375,7 +1323,7 @@ bool userupdate(string username) { //when user selects to update details goes to
     }
     writefile.close(); // write everything to user file with change made.
     char usercontinue;
-    cout << "would you like to update anymore details (y or n)?";
+    cout << "\t\t\t\twould you like to update anymore details (y or n)?";
     cin >> usercontinue;
     if (usercontinue == 'y') {
         return true;
@@ -1419,15 +1367,15 @@ void checkout(user loggedinuser, string usern) {
         }
     }
     
-    cout << "the orders in your carts are: \n";
+    cout << "\t\t\t\tthe orders in your carts are: \n";
     displayorders(loggedinuser.username);
-    cout << "total:\n";
-    cout << "______________________________________________________________________________\n";
-    cout << "$" << total << "\n";
+    cout << "\t\t\t\ttotal:\n";
+    cout << "\t\t\t________________________________________________________________________________________\n";
+    cout << "\t\t\t\t$" << total << "\n\n";
     readfile.close();
 }
 
-void removeallorders(string username) {
+void removeallorders(string username) { // when user buys their order all their orders will be cleared out of the orders file.
     ifstream readorders;
     ofstream writeorders;
     readorders.open("orders.csv");
@@ -1457,3 +1405,4 @@ void removeallorders(string username) {
     }
     writeorders.close(); // write updated orders list back to file
 }
+// Morgan Finish
