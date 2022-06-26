@@ -53,6 +53,7 @@ void bookingdiscount();
 void contactdetails();
 //login/register Functions templates
 //______________________________________________________________________________________________________________
+void userfileupdate();
 void loginregmenu();
 void userlogin(user& userlog, string searchusername, string password);
 void login(user& loginuser);
@@ -190,12 +191,73 @@ void contactdetails() { // displays contact and location details
 //nicki finish
 
 //Morgan start
+
+void userfileupdate() {
+    ifstream readfile;
+    ofstream writefile;
+    readfile.open("user.csv");
+    vector<string> storevalues; // store everything on file in a vector
+    string type, username, passwd, fname, lname, gender, dob, contactnum, email, cardnum, cardexp, cardcvv;
+
+    while (getline(readfile, type, ',')) {
+        getline(readfile, username, ',');
+        getline(readfile, passwd, ',');
+        getline(readfile, fname, ',');
+        getline(readfile, lname, ',');
+        getline(readfile, gender, ',');
+        getline(readfile, dob, ',');
+        getline(readfile, contactnum, ',');
+        getline(readfile, email, ',');
+        getline(readfile, cardnum, ',');
+        getline(readfile, cardexp, ',');
+        getline(readfile, cardcvv, '\n');
+        if (find(storevalues.begin(), storevalues.end(), username) != storevalues.end()) {
+        }
+        else {
+            storevalues.push_back(type);
+            storevalues.push_back(",");
+            storevalues.push_back(username);
+            storevalues.push_back(",");
+            storevalues.push_back(passwd);
+            storevalues.push_back(",");
+            storevalues.push_back(fname);
+            storevalues.push_back(",");
+            storevalues.push_back(lname);
+            storevalues.push_back(",");
+            storevalues.push_back(gender);
+            storevalues.push_back(",");
+            storevalues.push_back(dob);
+            storevalues.push_back(",");
+            storevalues.push_back(contactnum);
+            storevalues.push_back(",");
+            storevalues.push_back(email);
+            storevalues.push_back(",");
+            storevalues.push_back(cardnum);
+            storevalues.push_back(",");
+            storevalues.push_back(cardexp);
+            storevalues.push_back(",");
+            storevalues.push_back(cardcvv);
+            storevalues.push_back("\n");
+        }
+    }
+    readfile.close();
+    writefile.open("user.csv");
+
+    vector<string> ::iterator i;
+    for (i = storevalues.begin(); i != storevalues.end(); i++) {
+        writefile << *i; // rewrite everything back to the file with password changed.
+    }
+    writefile.close();
+}
+
+
 //Login/register functions
 //______________________________________________________________________________________________________________
 //Login/register menu
 //______________________________________________________________________________________________________________
 void loginregmenu() {
     int userselect = 0;
+    userfileupdate();
 
     cout << "\t\t\t\t ______________________\n"; // display menu
     cout << "\t\t\t\t| Login/Register       |\n";
