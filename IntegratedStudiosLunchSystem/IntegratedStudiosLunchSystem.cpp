@@ -787,7 +787,7 @@ void setnewpasswoord(string checkusername, string newpassword) {
 void restaurant() {
     int option, order, payment, complaint, bookingdiscounttype = 0;
     char choice, confirmorder, continuepaying;
-    bool keepgoing = true, correctcvv = false;
+    bool keepgoing = true, correctcvv = false, finishedorder = false;
     string cvv, usercomplaint;
 
     cout << endl;
