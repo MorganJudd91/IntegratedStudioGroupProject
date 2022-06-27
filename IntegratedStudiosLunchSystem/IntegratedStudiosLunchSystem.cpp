@@ -808,9 +808,10 @@ void restaurant() {
 
     switch (option)
     {
-    case 1:
+    case 1: 
     {
-        // weekly menu
+    while (!finishedorder) {
+            // weekly menu
         int orderchoice = 0;
         cout << endl;
         cout << "\t\t\t\t1. add order" << endl;
@@ -838,9 +839,8 @@ void restaurant() {
                 cout << endl;
                 cout << "\t\t\t\tplease select your preffered menu: ";
                 cin >> orderchoice;
-                addorder(userloggedin, orderchoice); // add users order to order file
+                addorder(userloggedin, orderchoice);
                 cout << endl;
-                restaurant();
             }
             break;
         case 2:
@@ -848,12 +848,10 @@ void restaurant() {
             displayorders(userloggedin.username);
             cout << "\t\t\t\tSelect the number order you want to remove: ";
             cin >> ordernumtoremove;
-            removeitem(userloggedin.username, ordernumtoremove); // remove selected user order
-            restaurant();
+            removeitem(userloggedin.username, ordernumtoremove);
             break;
         case 3:
-            displayorders(userloggedin.username); // shows user their current orders/cart
-            restaurant();
+            displayorders(userloggedin.username);
             break;
         case 4:
             checkout(userloggedin, userloggedin.username);
@@ -863,22 +861,20 @@ void restaurant() {
                 while (!correctcvv) {
                     cout << "\t\t\t\tplease enter your 3 digit cvv number: ";
                     cin >> cvv;
-                    if (cvv == userloggedin.usercard.cvv) { // user enters their cvv number to purchase their order
+                    if (cvv == userloggedin.usercard.cvv) {
                         cout << "\t\t\t\tThank you, enjoy your meal.\n\n";
                         removeallorders(userloggedin.username);
-                        main();
                         correctcvv = true;
                         break;
                     }
                     else {
-                        cout << "\t\t\t\tThat is not the correct cvv number for your card, try again? (y to continue)"; // if they get cvv number wrong they can try again or go back
+                        cout << "\t\t\t\tThat is not the correct cvv number for your card, try again? (y to continue)";
                         cin >> continuepaying;
                         if (continuepaying == 'y') {
 
                         }
                         else {
                             cout << "\t\t\t\tWhat would you like to do next? \n";
-                            restaurant();
                             break;
                         }
                     }
@@ -886,13 +882,14 @@ void restaurant() {
             }
             else {
                 cout << "\t\t\t\tWhat would you like to do next? \n";
-                restaurant();
             }
             break;
         case 5:
-            restaurant(); // go back
+            finishedorder = true;
+            restaurant();
             break;
         }
+    }
     }break;
     case 2:
     {
